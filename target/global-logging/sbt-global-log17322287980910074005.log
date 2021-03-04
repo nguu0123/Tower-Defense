@@ -1,0 +1,103 @@
+[debug] > Exec(early(addDefaultCommands), None, None)
+[debug] > Exec(addDefaultCommands, None, None)
+[debug] > Exec(early(initialize), None, None)
+[debug] > Exec(initialize, None, None)
+[debug] > Exec(early(addPluginSbtFile="""C:\Users\nguu0\AppData\Local\Temp\idea.sbt"""), None, None)
+[debug] > Exec(addPluginSbtFile="""C:\Users\nguu0\AppData\Local\Temp\idea.sbt""", None, None)
+[debug] > Exec(boot, None, None)
+[debug] > Exec(writeSbtVersion, None, None)
+[debug] > Exec(reload, None, None)
+[debug] > Exec(sbtStashOnFailure, None, None)
+[debug] > Exec(onFailure loadFailed, None, None)
+[debug] > Exec(loadp, None, None)
+[info] welcome to sbt 1.4.7 (AdoptOpenJDK Java 11.0.9)
+[debug]       Load.loadUnit: plugins took 51.585956ms
+[debug]       Load.loadUnit: defsScala took 0.12341ms
+[debug] [Loading] Scanning directory C:\Users\nguu0\.sbt\1.0\plugins
+[debug] [Loading] Found non-root projects 
+[debug] [Loading] Done in C:\Users\nguu0\.sbt\1.0\plugins, returning: ()
+[debug] deducing auto plugins based on known facts Set(Atom(sbt.plugins.CorePlugin)) and clauses Clauses(List(Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.IvyPlugin))), Clause(Atom(sbt.ScriptedPlugin),Set(Atom(sbt.plugins.JvmPlugin))), Clause(Atom(sbt.plugins.SbtPlugin),Set(Atom(sbt.ScriptedPlugin))), Clause(Atom(sbt.plugins.SemanticdbPlugin),Set(Atom(sbt.plugins.JvmPlugin))), Clause(Atom(sbt.plugins.JUnitXmlReportPlugin),Set(Atom(sbt.plugins.JvmPlugin))), Clause(Atom(sbt.plugins.MiniDependencyTreePlugin),Set(Atom(sbt.plugins.JvmPlugin))), Clause(Atom(sbt.plugins.CorePlugin),Set(Atom(sbt.plugins.IvyPlugin))), Clause(Atom(sbt.plugins.IvyPlugin),Set(Atom(sbt.plugins.JvmPlugin))), Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.SemanticdbPlugin))), Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.JUnitXmlReportPlugin))), Clause(Atom(sbt.plugins.CorePlugin),Set(Atom(sbt.plugins.Giter8TemplatePlugin))), Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.MiniDependencyTreePlugin)))))
+[debug]   :: deduced result: Matched(sbt.plugins.CorePlugin,sbt.plugins.Giter8TemplatePlugin,sbt.plugins.IvyPlugin,sbt.plugins.JvmPlugin,sbt.plugins.MiniDependencyTreePlugin,sbt.plugins.JUnitXmlReportPlugin,sbt.plugins.SemanticdbPlugin)
+[debug] Plugins.deducer#function took 9.408529 ms
+[debug]           Load.resolveProject(global-plugins) took 21.301171ms
+[debug]         Load.loadTransitive: finalizeProject(Project(id global-plugins, base: C:\Users\nguu0\.sbt\1.0\plugins, plugins: List(<none>))) took 37.272754ms
+[debug] [Loading] Done in C:\Users\nguu0\.sbt\1.0\plugins, returning: (global-plugins)
+[debug]       Load.loadUnit: loadedProjectsRaw took 47.683714ms
+[debug]       Load.loadUnit: cleanEvalClasses took 0.120127ms
+[debug]     Load.loadUnit(file:/C:/Users/nguu0/.sbt/1.0/plugins/, ...) took 103.183785ms
+[debug]   Load.apply: load took 203.807537ms
+[debug]   Load.apply: resolveProjects took 3.187835ms
+[debug]   Load.apply: finalTransforms took 53.074833ms
+[debug]   Load.apply: config.delegates took 6.268883ms
+[debug]   Load.apply: Def.make(settings)... took 509.696065ms
+[debug]   Load.apply: structureIndex took 79.712366ms
+[debug]   Load.apply: mkStreams took 1.012908ms
+[info] loading global plugins from C:\Users\nguu0\.sbt\1.0\plugins
+[debug] Running task... Cancel: Signal, check cycles: false, forcegc: true
+[debug] Load.defaultLoad until apply took 22213.162008ms
+[debug]           Load.loadUnit: plugins took 15.146897ms
+[debug]           Load.loadUnit: defsScala took 0.004749ms
+[debug] [Loading] Scanning directory C:\Users\nguu0\IdeaProjects\Tower Defense\project
+[debug]             Load.loadUnit: mkEval took 2.887448ms
+[debug] [Loading] Found non-root projects 
+[debug] [Loading] Done in C:\Users\nguu0\IdeaProjects\Tower Defense\project, returning: ()
+[debug] deducing auto plugins based on known facts Set(Atom(sbt.plugins.CorePlugin)) and clauses Clauses(List(Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.IvyPlugin))), Clause(Atom(sbt.ScriptedPlugin),Set(Atom(sbt.plugins.JvmPlugin))), Clause(Atom(sbt.plugins.SbtPlugin),Set(Atom(sbt.ScriptedPlugin))), Clause(Atom(sbt.plugins.SemanticdbPlugin),Set(Atom(sbt.plugins.JvmPlugin))), Clause(Atom(sbt.plugins.JUnitXmlReportPlugin),Set(Atom(sbt.plugins.JvmPlugin))), Clause(Atom(sbt.plugins.MiniDependencyTreePlugin),Set(Atom(sbt.plugins.JvmPlugin))), Clause(Atom(sbt.plugins.CorePlugin),Set(Atom(sbt.plugins.IvyPlugin))), Clause(Atom(sbt.plugins.IvyPlugin),Set(Atom(sbt.plugins.JvmPlugin))), Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.SemanticdbPlugin))), Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.JUnitXmlReportPlugin))), Clause(Atom(sbt.plugins.CorePlugin),Set(Atom(sbt.plugins.Giter8TemplatePlugin))), Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.MiniDependencyTreePlugin)))))
+[debug]   :: deduced result: Matched(sbt.plugins.CorePlugin,sbt.plugins.Giter8TemplatePlugin,sbt.plugins.IvyPlugin,sbt.plugins.JvmPlugin,sbt.plugins.MiniDependencyTreePlugin,sbt.plugins.JUnitXmlReportPlugin,sbt.plugins.SemanticdbPlugin)
+[debug] Plugins.deducer#function took 1.496 ms
+[info] loading settings for project tower-defense-build from idea.sbt ...
+[debug]               Load.resolveProject(tower-defense-build) took 1.979162ms
+[debug]             Load.loadTransitive: finalizeProject(Project(id tower-defense-build, base: C:\Users\nguu0\IdeaProjects\Tower Defense\project, plugins: List(<none>))) took 3.89421ms
+[debug] [Loading] Done in C:\Users\nguu0\IdeaProjects\Tower Defense\project, returning: (tower-defense-build)
+[debug]           Load.loadUnit: loadedProjectsRaw took 1628.946836ms
+[debug]           Load.loadUnit: cleanEvalClasses took 2.410502ms
+[debug]         Load.loadUnit(file:/C:/Users/nguu0/IdeaProjects/Tower%20Defense/project/, ...) took 1647.038521ms
+[debug]       Load.apply: load took 1648.472012ms
+[debug]       Load.apply: resolveProjects took 0.076127ms
+[debug]       Load.apply: finalTransforms took 13.134281ms
+[debug]       Load.apply: config.delegates took 0.247518ms
+[debug]       Load.apply: Def.make(settings)... took 48.196559ms
+[debug]       Load.apply: structureIndex took 26.30914ms
+[debug]       Load.apply: mkStreams took 0.003772ms
+[info] loading project definition from C:\Users\nguu0\IdeaProjects\Tower Defense\project
+[debug] Running task... Cancel: Signal, check cycles: false, forcegc: true
+[debug]     Load.loadUnit: plugins took 3780.479083ms
+[debug]     Load.loadUnit: defsScala took 0.00426ms
+[debug] [Loading] Scanning directory C:\Users\nguu0\IdeaProjects\Tower Defense
+[debug]       Load.loadUnit: mkEval took 0.182146ms
+[debug] [Loading] Found non-root projects 
+[debug] [Loading] Done in C:\Users\nguu0\IdeaProjects\Tower Defense, returning: ()
+[debug] deducing auto plugins based on known facts Set(Atom(sbt.plugins.CorePlugin)) and clauses Clauses(List(Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.IvyPlugin))), Clause(Atom(sbt.ScriptedPlugin),Set(Atom(sbt.plugins.JvmPlugin))), Clause(Atom(sbt.plugins.SbtPlugin),Set(Atom(sbt.ScriptedPlugin))), Clause(Atom(sbt.plugins.SemanticdbPlugin),Set(Atom(sbt.plugins.JvmPlugin))), Clause(Atom(sbt.plugins.JUnitXmlReportPlugin),Set(Atom(sbt.plugins.JvmPlugin))), Clause(Atom(sbt.plugins.MiniDependencyTreePlugin),Set(Atom(sbt.plugins.JvmPlugin))), Clause(Atom(org.jetbrains.sbt.StructurePlugin),Set(Atom(sbt.plugins.JvmPlugin))), Clause(Atom(org.jetbrains.sbt.IdeaShellPlugin),Set(Atom(sbt.plugins.JvmPlugin))), Clause(Atom(org.jetbrains.sbt.indices.SbtIntellijIndicesPlugin),Set(Atom(sbt.plugins.JvmPlugin))), Clause(Atom(sbt.plugins.CorePlugin),Set(Atom(sbt.plugins.IvyPlugin))), Clause(Atom(sbt.plugins.IvyPlugin),Set(Atom(sbt.plugins.JvmPlugin))), Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.SemanticdbPlugin))), Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.JUnitXmlReportPlugin))), Clause(Atom(sbt.plugins.CorePlugin),Set(Atom(sbt.plugins.Giter8TemplatePlugin))), Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.MiniDependencyTreePlugin))), Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(org.jetbrains.sbt.StructurePlugin))), Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(org.jetbrains.sbt.IdeaShellPlugin))), Clause(And(Set(Atom(sbt.plugins.CorePlugin), Atom(sbt.plugins.JvmPlugin))),Set(Atom(org.jetbrains.sbt.indices.SbtIntellijIndicesPlugin)))))
+[debug]   :: deduced result: Matched(sbt.plugins.CorePlugin,sbt.plugins.Giter8TemplatePlugin,sbt.plugins.IvyPlugin,sbt.plugins.JvmPlugin,sbt.plugins.SemanticdbPlugin,org.jetbrains.sbt.indices.SbtIntellijIndicesPlugin,sbt.plugins.JUnitXmlReportPlugin,org.jetbrains.sbt.IdeaShellPlugin,org.jetbrains.sbt.StructurePlugin,sbt.plugins.MiniDependencyTreePlugin)
+[debug] Plugins.deducer#function took 2.022603 ms
+[info] loading settings for project tower-defense from build.sbt ...
+[debug]         Load.resolveProject(tower-defense) took 23.672981ms
+[debug]       Load.loadTransitive: finalizeProject(Project(id tower-defense, base: C:\Users\nguu0\IdeaProjects\Tower Defense, plugins: List(<none>))) took 26.564689ms
+[debug] [Loading] Done in C:\Users\nguu0\IdeaProjects\Tower Defense, returning: (tower-defense)
+[debug]     Load.loadUnit: loadedProjectsRaw took 721.979609ms
+[debug]     Load.loadUnit: cleanEvalClasses took 8.720522ms
+[debug]   Load.loadUnit(file:/C:/Users/nguu0/IdeaProjects/Tower%20Defense/, ...) took 4511.835372ms
+[debug] Load.apply: load took 4513.453386ms
+[debug] Load.apply: resolveProjects took 0.088978ms
+[debug] Load.apply: finalTransforms took 27.686829ms
+[debug] Load.apply: config.delegates took 0.395581ms
+[debug] Load.apply: Def.make(settings)... took 68.571913ms
+[debug] Load.apply: structureIndex took 35.348138ms
+[debug] Load.apply: mkStreams took 0.004679ms
+[info] set current project to Tower Defense (in build file:/C:/Users/nguu0/IdeaProjects/Tower%20Defense/)
+[debug] > Exec(sbtPopOnFailure, None, None)
+[debug] > Exec(resumeFromFailure, None, None)
+[debug] > Exec(notifyUsersAboutShell, None, None)
+[debug] > Exec(iflast shell, None, None)
+[debug] > Exec(; set ideaPort in Global := 51266 ; idea-shell, None, None)
+[debug] > Exec(set ideaPort in Global := 51266, None, None)
+[info] Defining Global / ideaPort
+[info] The new value will be used by Compile / compile, Test / compile
+[debug] Defining 
+[debug] 	Global / ideaPort
+[debug] 
+[debug] The new value will be used by 
+[debug] 	Compile / compile
+[debug] 	Test / compile
+[info] Reapplying settings...
+[info] set current project to Tower Defense (in build file:/C:/Users/nguu0/IdeaProjects/Tower%20Defense/)
+[debug] > Exec(idea-shell, None, None)

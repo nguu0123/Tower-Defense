@@ -11,6 +11,8 @@ final case class Velocity(val direction: Direction, val speed: Double) {
   def changeSpeed(newSpeed: Double): Velocity = this.copy(speed = newSpeed)
   def faster(amount: Double): Velocity = this.copy(speed = max(this.speed + amount, 0) )
   def slower(amount: Double): Velocity = this.copy(speed = max(this.speed - amount, 0) )
+  def moveFrom(pos: Pos): Pos = pos + this.toPos
+  def toPos: Pos = Pos(this.dx, this.dy)
 }
 object Velocity {
   def apply(dx: Double, dy: Double): Velocity = Velocity(Direction.fromRad(atan2(-dy, dx)), hypot(dx, dy))

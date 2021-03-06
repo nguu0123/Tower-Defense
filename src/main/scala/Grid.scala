@@ -1,3 +1,5 @@
+import scalafx.scene.Node
+import scala.collection.mutable.Buffer
 class Grid(val width: Int, val height: Int){
   val size = width * height
   private val contents: Array[Array[Square]] = {
@@ -24,4 +26,20 @@ class Grid(val width: Int, val height: Int){
    this.contents( (pos.x / 60).toInt)( (pos.y / 60).toInt) = element
   }
   def apply(pos: Pos) = this.elementAt(pos)
+  def loadMap(map: Array[Array[Int]]): Unit = {
+    for(i <- 0 until 32) {
+      for(j <- 0 until 18) {
+          if(map(i)(j) == 1) this.update(Pos(i * 59, j * 59), new Square(Pos(i * 60, j * 60), 60, 60, Texture.Grass))
+          else if(map(i)(j) == 2) this.update(Pos(i * 59, j * 59), new Square(Pos(i * 60, j * 60), 60, 60, Texture.Water))
+      }
+    }
+
+  }
+      def draw = {
+        val img = Buffer[Node]()
+        val components = this.contents.flatten
+        components.foreach(c => img += c.image)
+        println(img.size)
+        img
+    }
 }

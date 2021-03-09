@@ -15,6 +15,13 @@ case n if n.startsWith("Mac") => "mac"
 case n if n.startsWith("Windows") => "win"
 case _ => throw new Exception("Unknown platform!")
 }
+val circeVersion = "0.12.3"
+
+libraryDependencies ++= Seq(
+  "io.circe" %% "circe-core",
+  "io.circe" %% "circe-generic",
+  "io.circe" %% "circe-parser"
+).map(_ % circeVersion)
 
 // Add JavaFX dependencies, as these are required by ScalaFx
 lazy val javaFXModules = Seq("base", "controls", "fxml", "graphics", "media", "swing", "web")

@@ -23,6 +23,10 @@ class Grid(val width: Int, val height: Int){
    require(this.contains(pos), "there is no square there")
     this.contents( (pos.x / 60).toInt)( (pos.y / 60).toInt)
   }
+  def getTexture(pos: Pos): Texture = {
+     if(!this.contains(pos)) Texture.Nothing
+     else this.elementAt(pos).texture
+  }
   def update(pos: Pos, element: Square) = {
    require(this.contains(pos), "cant update due to incorrect pos")
    this.contents( (pos.x / 60).toInt)( (pos.y / 60).toInt) = element

@@ -5,10 +5,12 @@ import scala.util.Failure
 import java.io.FileNotFoundException
 import scala.util.Success
 import java.io.BufferedReader
+import io.circe.generic.auto._
+import io.circe.syntax._
+import io.circe.parser.decode
+import scalafx.scene.image.{Image, ImageView}
 
-import io.circe.generic.auto._, io.circe.syntax._, io.circe.parser.decode
-
-object JsonFileManger {
+object FileManager {
 
   val jsonString = """
    [
@@ -75,5 +77,8 @@ object JsonFileManger {
     grid.loadMap(maps(0).map)
  }
 
-
+  def createImageView(imageLink: String): ImageView = {
+     val imageView = new ImageView(new Image(imageLink))
+    imageView
+  }
 }

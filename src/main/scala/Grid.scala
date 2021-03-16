@@ -46,4 +46,7 @@ class Grid(val width: Int, val height: Int){
         for(square <- components) gc.drawImage(square.image, square.pos.x, square.pos.y, square.width, square.height)
         gc
     }
+  def setTile(pos: Pos): Unit = {
+    this.update(pos, new Square(pos, 60, 60, Texture.Water))
+  }
 }

@@ -1,19 +1,25 @@
 import scalafx.scene.image.{Image, ImageView}
 import scalafx.scene.Group
 class Enemies(var pos:Pos, var velocity: Velocity, val health: Health, val grid: Grid)  {
-  lazy val image = {
-    val imageView = new ImageView(new Image("file:src/res/Enemy.png"))
-    imageView.relocate(this.pos.x, this.pos.y)
-    imageView
-  }
+  private lazy val aliveImages = (0 until 5).map(x => FileManager.createImageView("file:src/res/run" + x + ".png"))
+  private lazy val deadImages = (0 until 5).map(x => FileManager.createImageView("file:src/res/dead" + x + ".png"))
+  private lazy val images = Seq(deadImages, aliveImages)
   var currentSquare = grid.elementAt(this.pos)
-  def reachGoal: Boolean = this.pos.inRange(1920, 1080)
-  def isAlive: Boolean = !this.health.isDead && !this.reachGoal
+  var index = 0
+  var time = 0
+  var state = 1
+  var stopUpdate = false
+  /// state = 1 if the enemy is alive and 0 if it is dead///
+  def reachGoal: Boolean = this.pos.inRange(1800, 1080)
+  def isAlive: Boolean = !this.health.isDead
   def draw(group: Group) = {
-    group.getChildren.add(this.image)
+    group.getChildren.add(this.images(state)(index))
   }
   def remove(group: Group) = {
-    group.getChildren.remove(this.image)
+    group.getChildren.remove(this.images(state)(index))
+    time = (time + 1) % 15
+    if(time == 0) index = (index + 1) % 5
+    if(state == 0 && index == 4) stopUpdate = true
   }
   def nextDirection: Direction = {
      val up   = grid.getTexture(this.pos + Pos(0.0, -60.0))
@@ -29,13 +35,18 @@ class Enemies(var pos:Pos, var velocity: Velocity, val health: Health, val grid:
       else if (currentSquareTexture == down && !this.velocity.movingUp) Direction.Down
       else Direction.Left
     }
-
   }
-  def update(): Unit = {
+  def update(group: Group): Unit = {
+    this.remove(group)
     this.velocity = this.velocity.changeDirection(this.nextDirection)
      this.currentSquare = grid.elementAt(this.pos)
     this.pos = this.pos.nextPos(this.velocity)
-    this.image.relocate(this.pos.x, this.pos.y)
+    if(!this.isAlive && state == 1) {
+      state = 0
+      index = 0
+    }
+    this.images(state)(index).relocate(this.pos.x, this.pos.y)
+    this.draw(group)
   }
 }
 object Enemies {

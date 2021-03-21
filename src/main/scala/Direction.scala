@@ -20,5 +20,5 @@ object Direction {
   val Right: Direction = new Direction(1.0, 0.0) {override val toString = "Direction.Right"}
   def fromRad(angle: Double): Direction = Direction( cos(angle), -sin(angle))
   def fromDegree(angle: Double): Direction = fromRad(angle.toRadians)
-   def fromDeltas(dx: Double, dy: Double) =  fromRad(atan2(-dy, dx))
+  def fromDeltas(dx: Double, dy: Double) =  fromRad(atan2(-dy, dx))
 }

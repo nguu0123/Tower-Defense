@@ -5,18 +5,12 @@ class Projectile(var pos: Pos, val speed: Double, val radious: Double, val targe
    var velocity = Velocity( Direction.Up, this.speed)
    val radiousSq = radious * radious
    var stopUpdate = false
-    val rectangle = new Rectangle {
-        width = 10
-        height = 10
-        x = 10
-        y = 10
-        fill = Blue
-    }
+    val projectileImage = FileManager.createImageView("file:src/res/projectile.png")
   def draw(group: Group) = {
-    group.getChildren.add(this.rectangle)
+    group.getChildren.add(this.projectileImage)
   }
   def remove(group: Group) = {
-    group.getChildren.remove(this.rectangle)
+    group.getChildren.remove(this.projectileImage)
   }
   def hitTarget: Boolean = this.pos.distance(target.center) < this.radiousSq + 2
    def update(group: Group) = {
@@ -25,7 +19,7 @@ class Projectile(var pos: Pos, val speed: Double, val radious: Double, val targe
          val direction = target.center - this.pos
          this.velocity = this.velocity.changeDirection(Direction.fromDeltas(direction.x, direction.y))
          this.pos = this.pos.nextPos(this.velocity)
-         this.rectangle.relocate(this.pos.x, this.pos.y)
+         this.projectileImage.relocate(this.pos.x, this.pos.y)
          if(this.hitTarget) {
             this.remove(group)
             this.stopUpdate = true

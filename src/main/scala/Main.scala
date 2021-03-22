@@ -45,6 +45,9 @@ firstTower.setWave(wave)
 secondTower.setWave(wave)
 thirdTower.setWave(wave)
 fourthTower.setWave(wave)
+var nextSecond = System.currentTimeMillis() + 1000
+var frameLastSecond = 0
+var frameCurrentSecond = 0
      def mainLoop = () => {
         wave.update()
         firstTower.update()
@@ -52,6 +55,14 @@ fourthTower.setWave(wave)
         thirdTower.update()
         fourthTower.update()
         stage.scene = scene
+        val currentSecond = System.currentTimeMillis()
+       if(currentSecond > nextSecond) {
+         nextSecond += 1000
+         frameLastSecond = frameCurrentSecond
+         frameCurrentSecond = 0
+       }
+       frameCurrentSecond += 1
+       println(frameLastSecond)
     }
 
     val ticker = new Ticker(mainLoop)

@@ -3,6 +3,9 @@ import scalafx.scene.Group
 class Enemies(var pos:Pos, var velocity: Velocity, val health: Health, val grid: Grid)  {
   private lazy val aliveImages = (0 until 5).map(x => FileManager.createImageView("file:src/res/run" + x + ".png"))
   private lazy val deadImages = (0 until 5).map(x => FileManager.createImageView("file:src/res/dead" + x + ".png"))
+  private val healtPercent = FileManager.createImageView("file:src/res/Health0.png")
+  private val healthBorder = FileManager.createImageView("file:src/res/Health1.png")
+  private val healthBackground = FileManager.createImageView("file:src/res/Health2.png")
   private lazy val images = Seq(deadImages, aliveImages)
   var currentSquare = grid.elementAt(this.pos)
   var index = 0
@@ -16,9 +19,13 @@ class Enemies(var pos:Pos, var velocity: Velocity, val health: Health, val grid:
   def canBeShooted: Boolean = !this.stopUpdate || !this.reachGoal
   def draw(group: Group) = {
     group.getChildren.add(this.images(state)(index))
+    if(this.health.percent > 0.05) this.healtPercent.setFitWidth(32 * this.health.percent)
+    else this.healtPercent.setFitWidth(32 * 0.01)
+    group.getChildren.addAll(healthBackground, healtPercent, healthBorder)
   }
   def remove(group: Group) = {
     group.getChildren.remove(this.images(state)(index))
+    group.getChildren.removeAll(healthBackground, healtPercent, healthBorder)
     time = (time + 1) % 15
     if(time == 0) index = (index + 1) % 5
     if(state == 0 && index == 4) stopUpdate = true
@@ -48,6 +55,9 @@ class Enemies(var pos:Pos, var velocity: Velocity, val health: Health, val grid:
       index = 0
     }
     this.images(state)(index).relocate(this.pos.x, this.pos.y)
+    this.healthBorder.relocate(this.pos.x + 7, this.pos.y - 4)
+    this.healtPercent.relocate(this.pos.x + 7, this.pos.y - 4)
+    this.healthBackground.relocate(this.pos.x + 7, this.pos.y - 4)
     this.draw(group)
   }
 }

@@ -5,7 +5,7 @@ class Projectile(var pos: Pos, val speed: Double, val radious: Double, val targe
    var velocity = Velocity( Direction.Up, this.speed)
    val radiousSq = radious * radious
    var stopUpdate = false
-    val projectileImage = FileManager.createImageView("file:src/res/projectile.png")
+    val projectileImage = FileManager.createImageView("file:src/res/Fireball1.png")
   def draw(group: Group) = {
     group.getChildren.add(this.projectileImage)
   }
@@ -17,7 +17,9 @@ class Projectile(var pos: Pos, val speed: Double, val radious: Double, val targe
       if(target.stopUpdate || target.reachGoal ) this.remove(group)
       else {
          val direction = target.center - this.pos
-         this.velocity = this.velocity.changeDirection(Direction.fromDeltas(direction.x, direction.y))
+         val newDirection = Direction.fromDeltas(direction.x, direction.y)
+         this.velocity = this.velocity.changeDirection(newDirection)
+         this.projectileImage.rotate = -newDirection.toDegree + 30
          this.pos = this.pos.nextPos(this.velocity)
          this.projectileImage.relocate(this.pos.x, this.pos.y)
          if(this.hitTarget) {

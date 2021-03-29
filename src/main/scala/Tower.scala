@@ -2,13 +2,17 @@ import scalafx.scene.image.{Image, ImageView}
 import scala.util.control.Breaks._
 import scalafx.scene.Group
 class Tower(val pos: Pos, val damage: Int, val shootRange: Double, val shootRate: Int, val group: Group, waveManager: WaveManager){
-  val towerImage = FileManager.createImageView("file:src/res/Tower1.png")
+
   private var currentWave: Wave = null
   private var currentEnemy: Enemies = null
   private var currentTime = System.currentTimeMillis()
   private var projectiles = List[Projectile]()
-  towerImage.relocate(this.pos.x - 60.0, this.pos.y - 60.0)
-  group.getChildren.add(towerImage)
+  val goldNeeded = Gold(100)
+  def build() = {
+    val towerImage = FileManager.createImageView("file:src/res/Tower1.png")
+    towerImage.relocate(this.pos.x - 60.0, this.pos.y - 60.0)
+    group.getChildren.add(towerImage)
+  }
   def setWave(wave: Wave) = {
     this.currentWave = wave
   }
@@ -23,7 +27,7 @@ class Tower(val pos: Pos, val damage: Int, val shootRange: Double, val shootRate
   }
   def canShoot: Boolean = this.currentEnemy != null && this.currentEnemy.pos.distance(this.pos) <= this.shootRange && this.currentEnemy.canBeShooted
   def shoot() = {
-    this.projectiles = this.projectiles ++ List(Projectile(this.pos, 2.0, 2.0, this.currentEnemy, this.damage))
+    this.projectiles = this.projectiles ++ List(Projectile(this.pos, 3.0, 2.0, this.currentEnemy, this.damage))
   }
   def update() = {
       this.setWave(this.waveManager.getWave)

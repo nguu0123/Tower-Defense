@@ -1,12 +1,14 @@
 import scalafx.scene.image.{Image, ImageView}
 import scalafx.scene.Group
-class Enemies(var pos:Pos, var velocity: Velocity, val health: Health, val grid: Grid)  {
+class Enemies(var pos:Pos, var velocity: Velocity, val health: Health, val grid: Grid, val gold: Gold)  {
   private lazy val aliveImages = (0 until 5).map(x => FileManager.createImageView("file:src/res/run" + x + ".png"))
   private lazy val deadImages = (0 until 5).map(x => FileManager.createImageView("file:src/res/dead" + x + ".png"))
   private val healtPercent = FileManager.createImageView("file:src/res/Health0.png")
   private val healthBorder = FileManager.createImageView("file:src/res/Health1.png")
   private val healthBackground = FileManager.createImageView("file:src/res/Health2.png")
   private lazy val images = Seq(deadImages, aliveImages)
+  var canDamage = true
+  var canGiveGold = true
   var currentSquare = grid.elementAt(this.pos)
   var index = 0
   var time = 0
@@ -14,7 +16,7 @@ class Enemies(var pos:Pos, var velocity: Velocity, val health: Health, val grid:
   var stopUpdate = false
   /// state = 1 if the enemy is alive and 0 if it is dead///
   def center = this.pos + Pos(30.0, 30.0)
-  def reachGoal: Boolean = this.pos.inRange(1800, 1080)
+  def reachGoal: Boolean = this.pos.inRange(1400, 1080)
   def isAlive: Boolean = !this.health.isDead
   def canBeShooted: Boolean = !this.stopUpdate || !this.reachGoal
   def draw(group: Group) = {
@@ -26,7 +28,7 @@ class Enemies(var pos:Pos, var velocity: Velocity, val health: Health, val grid:
   def remove(group: Group) = {
     group.getChildren.remove(this.images(state)(index))
     group.getChildren.removeAll(healthBackground, healtPercent, healthBorder)
-    time = (time + 1) % 15
+    time = (time + 1) % 10
     if(time == 0) index = (index + 1) % 5
     if(state == 0 && index == 4) stopUpdate = true
   }
@@ -62,5 +64,5 @@ class Enemies(var pos:Pos, var velocity: Velocity, val health: Health, val grid:
   }
 }
 object Enemies {
- def apply(pos: Pos, velocity: Velocity, health: Health, grid: Grid) = new Enemies(pos, velocity, health, grid)
+ def apply(pos: Pos, velocity: Velocity, health: Health, grid: Grid, gold: Gold) = new Enemies(pos, velocity, health, grid, gold)
 }

@@ -4,10 +4,12 @@ import scalafx.scene.canvas.GraphicsContext
 import scala.collection.mutable.Buffer
 class Grid(val width: Int, val height: Int){
   val size = width * height
+  val xWidth = width / 60
+  val yHeight = height / 60
   private val contents: Array[Array[Square]] = {
-    val elems = Array.ofDim[Square](32,18)
-    for(i <- 0 until 32) {
-      for(j <- 0 until 18) {
+    val elems = Array.ofDim[Square](xWidth,yHeight)
+    for(i <- 0 until xWidth) {
+      for(j <- 0 until yHeight) {
          elems(i)(j) = new Square(Pos(i * 60, j* 60), 60, 60, Texture.Dirt)
       }
     }
@@ -33,8 +35,8 @@ class Grid(val width: Int, val height: Int){
   }
   def apply(pos: Pos) = this.elementAt(pos)
   def loadMap(map: Array[Array[Int]]): Unit = {
-    for(i <- 0 until 32) {
-      for(j <- 0 until 18) {
+    for(i <- 0 until xWidth) {
+      for(j <- 0 until yHeight) {
           if(map(i)(j) == 1) this.update(Pos(i * 60, j * 60), new Square(Pos(i * 60, j * 60), 60, 60, Texture.Grass))
           else if(map(i)(j) == 2) this.update(Pos(i * 60, j * 60), new Square(Pos(i * 60, j * 60), 60, 60, Texture.Water))
       }

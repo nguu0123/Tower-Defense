@@ -1,11 +1,12 @@
 import scalafx.scene.Group
-class WaveManager(group: Group, grid: Grid, totalWave: Int, minEnemiesPerWave: Int, startWave: Int){
+class WaveManager(group: Group, grid: Grid, totalWave: Int, minEnemiesPerWave: Int, startWave: Int, player: Player){
   private var currentWave: Wave = null
   private var currentTime = System.currentTimeMillis()
   private var numberOfWave = startWave
   def getWave = this.currentWave
+  def getWaveNumber = this.numberOfWave
   def spawnWave() = {
-   this.currentWave = new Wave(this.group, this.minEnemiesPerWave + 3 * this.numberOfWave, this.grid ,1000)
+   this.currentWave = new Wave(this.group, this.minEnemiesPerWave + 3 * this.numberOfWave, this.grid ,1000, player)
    this.numberOfWave += 1
   }
  def update(): Unit = {

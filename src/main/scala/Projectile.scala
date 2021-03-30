@@ -5,9 +5,14 @@ class Projectile(var pos: Pos, val speed: Double, val radious: Double, val targe
    var velocity = Velocity( Direction.Up, this.speed)
    val radiousSq = radious * radious
    var stopUpdate = false
+   var haveFired = false
     val projectileImage = FileManager.createImageView("file:src/res/Fireball1.png")
   def draw(group: Group) = {
-    group.getChildren.add(this.projectileImage)
+    if(!haveFired) {
+      group.getChildren.add(this.projectileImage)
+      haveFired = true
+    }
+    else this.projectileImage.relocate(this.pos.x, this.pos.y)
   }
   def remove(group: Group) = {
     group.getChildren.remove(this.projectileImage)
@@ -28,7 +33,6 @@ class Projectile(var pos: Pos, val speed: Double, val radious: Double, val targe
             target.health.update(this.damage)
          }
          else {
-           this.remove(group)
            this.draw(group)
          }
       }

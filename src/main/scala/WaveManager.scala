@@ -1,5 +1,5 @@
 import scalafx.scene.Group
-class WaveManager(group: Group, grid: Grid, totalWave: Int, minEnemiesPerWave: Int, startWave: Int, player: Player){
+class WaveManager(group: Group, grid: Grid, val totalWave: Int, val minEnemiesPerWave: Int, val startWave: Int, player: Player){
   private var currentWave: Wave = null
   private var currentTime = System.currentTimeMillis()
   private var numberOfWave = startWave

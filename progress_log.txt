@@ -6,3 +6,12 @@ First 3 weeks:
    Handling input from the user is hard and intelliJ mis-compile scalafx with javafx => fix by adding scalafx.Includes
    I usually code in the afternoon for around 3 hours (not all week)
    The progress is the same as I have stated in technical plan
+Week 4:
+   Adding a display system (player health, gold, current wave)
+   Adding gold system: player can know use gold to build tower, receive gold when enemies die or have run to goal
+   Changing the grid size to look better, the previous grid and game scence's size is too big
+   FileManager are not fully implemented yet -> a bit lagging behind
+   However, I have started to implement some GUI component in my game scene -> when the game scene is fully functiong, FileManager will be fully implemented
+   I have fixed the fps at around 60 fps so that the game will function the same in different computer.
+   My coding routine is still the same
+   The progress is not the same as I expected but I think I'm not lagging behind

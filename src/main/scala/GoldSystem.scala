@@ -9,6 +9,7 @@ val currentGold = new Label()
 moneyDisplay.getChildren.add(currentGold)
 currentGold.setText(player.gold.currentGold.toString)
 currentGold.setFont(font)
+currentGold.setTextFill(Color.web("#ffff3f"));
 currentGold.relocate(110,20)
 VBox.getChildren.add(moneyDisplay)
   def update() = {

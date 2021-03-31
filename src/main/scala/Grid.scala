@@ -10,7 +10,7 @@ class Grid(val width: Int, val height: Int){
     val elems = Array.ofDim[Square](xWidth,yHeight)
     for(i <- 0 until xWidth) {
       for(j <- 0 until yHeight) {
-         elems(i)(j) = new Square(Pos(i * 60, j* 60), 60, 60, Texture.Dirt)
+         elems(i)(j) = new Square(Pos(i * 60, j* 60), 60, 60, Texture.Dirt, true)
       }
     }
     elems
@@ -22,7 +22,7 @@ class Grid(val width: Int, val height: Int){
   private def contains(x: Double, y: Double): Boolean = (x >= 0 && x < width && y >= 0 && y < height)
   def contains(pos: Pos): Boolean = this.contains(pos.x, pos.y)
   def elementAt(pos: Pos): Square = {
-   require(this.contains(pos), "there is no square there")
+    require(this.contains(pos), "there is no square there")
     this.contents( (pos.x / 60).toInt)( (pos.y / 60).toInt)
   }
   def getTexture(pos: Pos): Texture = {
@@ -37,8 +37,8 @@ class Grid(val width: Int, val height: Int){
   def loadMap(map: Array[Array[Int]]): Unit = {
     for(i <- 0 until xWidth) {
       for(j <- 0 until yHeight) {
-          if(map(i)(j) == 1) this.update(Pos(i * 60, j * 60), new Square(Pos(i * 60, j * 60), 60, 60, Texture.Grass))
-          else if(map(i)(j) == 2) this.update(Pos(i * 60, j * 60), new Square(Pos(i * 60, j * 60), 60, 60, Texture.Water))
+          if(map(i)(j) == 1) this.update(Pos(i * 60, j * 60), new Square(Pos(i * 60, j * 60), 60, 60, Texture.Grass, false))
+          else if(map(i)(j) == 2) this.update(Pos(i * 60, j * 60), new Square(Pos(i * 60, j * 60), 60, 60, Texture.Water, false))
       }
     }
 
@@ -48,11 +48,16 @@ class Grid(val width: Int, val height: Int){
         for(square <- components) gc.drawImage(square.image, square.pos.x, square.pos.y, square.width, square.height)
         gc
     }
-  def setTile(pos: Pos): Unit = {
-    this.update(pos, new Square(pos, 60, 60, Texture.Water))
+  def canBuildAt(pos: Pos): Boolean = {
+   if(this.contains(pos))   this.elementAt(pos).buildable
+   else false
   }
   def setNotBuildable(pos: Pos) = {
-     println(pos)
-     this.contents( (pos.x / 60).toInt)( (pos.y / 60).toInt).texture.buildable = false
+     require(this.contains(pos))
+     this.contents( (pos.x / 60).toInt)( (pos.y / 60).toInt).buildable = false
+  }
+  def setBuildable(pos: Pos) = {
+     require(this.contains(pos))
+     this.contents( (pos.x / 60).toInt)( (pos.y / 60).toInt).buildable = true
   }
 }

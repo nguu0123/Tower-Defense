@@ -54,6 +54,12 @@ this.waveManager.spawnWave()
          player.update()
          inputManager.handleInput(shop1, gameGroup)
        }
-
+        val currentSecond = System.currentTimeMillis()
+       if(currentSecond > nextSecond) {
+         nextSecond += 1000
+         frameLastSecond = frameCurrentSecond
+         frameCurrentSecond = 0
+       }
+       frameCurrentSecond += 1
   }
 }

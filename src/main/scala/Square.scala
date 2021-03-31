@@ -1,5 +1,5 @@
 import scalafx.scene.image.{Image, ImageView}
-class Square(val pos: Pos, val width:Int, val height: Int, val texture: Texture) {
+class Square(val pos: Pos, val width:Int, val height: Int, val texture: Texture, var buildable: Boolean) {
   lazy val image = new Image(texture.filePath)
   def  ==(another: Square): Boolean = this.pos.x == another.pos.x && this.pos.y == this.pos.y
   def !=(another: Square): Boolean = this.pos.x != another.pos.x && this.pos.y != this.pos.y

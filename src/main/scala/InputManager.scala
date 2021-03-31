@@ -11,7 +11,6 @@ class InputManager(val player: Player) {
     val green =  Color.Green
     var mouseClicked = 0
     val shop1 = FileManager.createImageView("file:src/res/tower1.png")
-    // Handle keyboard and mouse input
     def handleInput(imageView: ImageView, group: Group) = {
         imageView.onMouseClicked = event => {
             mouseClicked = mouseClicked ^ 1

@@ -51,4 +51,8 @@ class Grid(val width: Int, val height: Int){
   def setTile(pos: Pos): Unit = {
     this.update(pos, new Square(pos, 60, 60, Texture.Water))
   }
+  def setNotBuildable(pos: Pos) = {
+     println(pos)
+     this.contents( (pos.x / 60).toInt)( (pos.y / 60).toInt).texture.buildable = false
+  }
 }

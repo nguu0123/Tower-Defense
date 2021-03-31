@@ -19,13 +19,12 @@ class Tower(val pos: Pos, val damage: Int, val shootRange: Double, val shootRate
   def setEnemy() = {
   if(this.currentWave != null)  {
       if (this.currentWave.getEnemies.nonEmpty) this.currentEnemy = {
-       val ans = this.currentWave.getEnemies.find(x => x.pos.distance(this.pos) <= this.shootRange && x.isAlive)
+       val ans = this.currentWave.getEnemies.find(x => x.center.distance(this.pos) <= this.shootRange && x.isAlive)
         if(ans.nonEmpty) ans.get
         else null
       }
     }
   }
-  def canShoot: Boolean = this.currentEnemy != null && this.currentEnemy.pos.distance(this.pos) <= this.shootRange && this.currentEnemy.canBeShooted
   def shoot() = {
     this.projectiles = this.projectiles ++ List(Projectile(this.pos, 3.0, 2.0, this.currentEnemy, this.damage))
   }

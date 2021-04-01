@@ -24,7 +24,7 @@ class Tower(val pos: Pos, val damage: Int, val shootRange: Double, val shootRate
   def setEnemy() = {
   if(this.currentWave != null)  {
       if (this.currentWave.getEnemies.nonEmpty) this.currentEnemy = {
-       val ans = this.currentWave.getEnemies.find(x => x.center.distance(this.pos) <= this.shootRange && x.isAlive)
+       val ans = this.currentWave.getEnemies.find(x => x.center.distance(this.pos) <= this.shootRange && x.isAlive && !x.reachGoal)
         if(ans.nonEmpty) ans.get
         else null
       }
@@ -60,7 +60,9 @@ class Tower(val pos: Pos, val damage: Int, val shootRange: Double, val shootRate
        this.shoot()
        this.currentTime = System.currentTimeMillis()
      }
-     for(projectile <- this.projectiles) if(!projectile.stopUpdate) projectile.update(this.group)
+     for(projectile <- this.projectiles) if(!projectile.stopUpdate) {
+       projectile.update(this.group)
+     }
   }
 }
 object Tower {

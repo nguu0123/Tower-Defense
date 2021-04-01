@@ -14,7 +14,6 @@ class Enemies(var pos:Pos, var velocity: Velocity, val health: Health, val grid:
   var time = 0
   var state = 1
   var stopUpdate = false
-  /// state = 1 if the enemy is alive and 0 if it is dead///
   def center = this.pos + Pos(20.0, 20.0)
   def reachGoal: Boolean = this.pos.inRange(1100, 720)
   def isAlive: Boolean = !this.health.isDead

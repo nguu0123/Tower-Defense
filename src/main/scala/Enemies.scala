@@ -7,6 +7,7 @@ class Enemies(var pos:Pos, var velocity: Velocity, val health: Health, val grid:
   private val healthBorder = FileManager.createImageView("file:src/res/Health1.png")
   private val healthBackground = FileManager.createImageView("file:src/res/Health2.png")
   private lazy val images = Seq(deadImages, aliveImages)
+  private var haveSpawn = false
   var canDamage = true
   var canGiveGold = true
   var currentSquare = grid.elementAt(this.pos)
@@ -18,18 +19,24 @@ class Enemies(var pos:Pos, var velocity: Velocity, val health: Health, val grid:
   def reachGoal: Boolean = this.pos.inRange(1100, 720)
   def isAlive: Boolean = !this.health.isDead
   def canBeShooted: Boolean = !this.stopUpdate || !this.reachGoal
+  def removeHealthBar(group: Group) = {
+    group.getChildren.removeAll(healthBackground, healtPercent, healthBorder)
+  }
   def draw(group: Group) = {
     group.getChildren.add(this.images(state)(index))
+    if(!haveSpawn) {
+      group.getChildren.addAll(healthBackground, healtPercent, healthBorder)
+      haveSpawn = true
+    }
     if(this.health.percent > 0.05) this.healtPercent.setFitWidth(32 * this.health.percent)
     else this.healtPercent.setFitWidth(32 * 0.01)
-    group.getChildren.addAll(healthBackground, healtPercent, healthBorder)
   }
   def remove(group: Group) = {
     group.getChildren.remove(this.images(state)(index))
-    group.getChildren.removeAll(healthBackground, healtPercent, healthBorder)
     time = (time + 1) % 10
     if(time == 0) index = (index + 1) % 5
-    if(state == 0 && index == 4) stopUpdate = true
+    if(state == 0 && index == 4)   stopUpdate = true
+
   }
   def nextDirection: Direction = {
      val up   = grid.getTexture(this.pos + Pos(0.0, -60.0))

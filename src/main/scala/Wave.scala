@@ -19,6 +19,7 @@ class Wave( group: Group,  numberOfEnemies: Int,  grid: Grid, spawnRate: Int, pl
       if(!enemy.stopUpdate && !enemy.reachGoal) enemy.update(group)
       if(enemy.stopUpdate || enemy.reachGoal) {
         enemy.remove(group)
+        enemy.removeHealthBar(group)
         if(enemy.canGiveGold ) {
           player.gold = player.gold + enemy.gold
           enemy.canGiveGold = false

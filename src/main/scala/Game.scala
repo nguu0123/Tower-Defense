@@ -42,6 +42,14 @@ var nextSecond = System.currentTimeMillis() + 1000
 var frameLastSecond = 0
 var frameCurrentSecond = 0
 val inputManager = new InputManager(player)
+val castle = FileManager.createImageView("file:src/res/Castle.png")
+castle.relocate(1020,120)
+gameGroup.getChildren.add(castle)
+for(i <- 0 to 2) {
+  for(j <- 0 to 2) {
+    grid.setNotBuildable( Pos(1020,120) + Pos(i * 60, j* 60))
+  }
+}
 this.waveManager.spawnWave()
   def update() = {
       if(!player.health.isDead){

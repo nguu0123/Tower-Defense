@@ -15,18 +15,20 @@ class Player(var gold: Gold, val grid: Grid, val health: Health, group: Group, w
     if(this.gold.canBuild(Gold(100))) {
        val buildPos = pos.approximate
        this.addTower((Tower(buildPos, 10, 200.0, 500, group, waveManager, this)) )
-       this.grid.setNotBuildable(buildPos)
-       this.grid.setNotBuildable(buildPos - Pos(60, 0))
-       this.grid.setNotBuildable(buildPos - Pos(0, 60))
-       this.grid.setNotBuildable(buildPos - Pos(60, 60))
+       for(i <- 0 to 1) {
+         for(j <- 0 to 1) {
+           grid.setNotBuildable(pos - Pos(i * 60, j * 60))
+         }
+       }
        this.gold = this.gold - Gold(100)
     }
   }
   def deleteTower(tower: Tower) = {
-     this.grid.setBuildable(tower.pos)
-     this.grid.setBuildable(tower.pos - Pos(60, 0))
-     this.grid.setBuildable(tower.pos - Pos(0, 60))
-     this.grid.setBuildable(tower.pos - Pos(60, 60))
+       for(i <- 0 to 1) {
+         for(j <- 0 to 1) {
+           grid.setBuildable(tower.pos - Pos(i * 60, j * 60))
+         }
+       }
      this.gold = this.gold + tower.goldNeeded * 0.7
      tower.destroy()
      this.towers = this.towers.filter(tower => !tower.isDestroyed)

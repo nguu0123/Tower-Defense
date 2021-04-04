@@ -24,18 +24,33 @@ val g = canvas.graphicsContext2D
 FileManager.loadMap(grid)
 grid.draw(g)
 gameGroup.getChildren.add(canvas)
-val waveManager = new WaveManager(gameGroup, grid, 3, 5, 0)
-val player = new Player(Gold(1000), grid,Health(20), gameGroup, waveManager)
+val waveManager = FileManager.loadWaveManager()
+waveManager.setGrid(grid)
+waveManager.setGroup(gameGroup)
+val player = FileManager.loadPlayer()
+player.setGrid(grid)
+player.setGroup(gameGroup)
+player.setWaveManager(waveManager)
 waveManager.setPlayer(player)
 val font = Font.loadFont("file:src/res/font.ttf", 40)
 val waveSystem = new WaveSystem(waveManager, font, VBox)
 val pauseAndContinueButtons = new HBox {
-  padding = Insets(0, 40, 0, 40)
-  spacing = 70
+  spacing = 20
 }
 val pauseButton = FileManager.createImageView("file:src/res/pauseButton.png")
 val continueButton = FileManager.createImageView("file:src/res/continueButton.png")
-pauseAndContinueButtons.getChildren.addAll(continueButton, pauseButton)
+val saveButton = FileManager.createImageView("file:src/res/saveButton.png")
+ pauseButton.onMouseClicked = event => {
+         player.stopGame = 1
+    }
+continueButton.onMouseClicked = event => {
+      player.stopGame = 0
+    }
+saveButton.onMouseClicked = event => {
+   FileManager.saveGame("src/data/WaveManagerData.json", this)
+
+}
+pauseAndContinueButtons.getChildren.addAll(saveButton, continueButton, pauseButton)
 VBox.getChildren.add(pauseAndContinueButtons)
 val goldSystem = new GoldSystem(player, VBox, font)
 val playerHealth = new PlayerHealth(player, VBox)
@@ -60,8 +75,10 @@ for(i <- 0 to 2) {
   }
 }
 this.waveManager.spawnWave()
+player.buildTower(Pos(120,60))
+player.buildTower(Pos(300,60))
   def update() = {
-      inputManager.handleInput(shop1, gameGroup, pauseButton, continueButton)
+      inputManager.handleInput(shop1, gameGroup)
       goldSystem.update()
       if(!player.health.isDead && player.stopGame == 0){
          waveSystem.update()

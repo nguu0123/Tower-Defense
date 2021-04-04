@@ -1,7 +1,20 @@
 import scalafx.scene.Group
-class Player(var gold: Gold, val grid: Grid, val health: Health, group: Group, waveManager: WaveManager) {
+class Player(var gold: Gold, val health: Health) {
    var stopGame = 0
    private var towers = Array[Tower]()
+   private var grid: Grid = null
+   private var group: Group = null
+   private var waveManager: WaveManager = null
+   def setGrid(grid: Grid) = {
+     this.grid = grid
+   }
+   def setGroup(group: Group) = {
+     this.group = group
+   }
+  def setWaveManager(waveManager: WaveManager) = {
+   this.waveManager = waveManager
+  }
+   def getTower = this.towers
    def addTower(tower: Tower) = {
       tower.build()
       this.towers = this.towers ++ Array(tower)

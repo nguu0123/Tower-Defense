@@ -14,7 +14,7 @@ class InputManager(val player: Player) {
     var mouseClicked = 0
     val shop1 = FileManager.createImageView("file:src/res/tower1.png")
     //can add circle that show tower shootRange => dont know how to do that//
-    def handleInput(tower: ImageView, group: Group, pauseButton: ImageView, continueButton: ImageView) = {
+    def handleInput(tower: ImageView, group: Group) = {
         tower.onMouseClicked = event => {
             mouseClicked = mouseClicked ^ 1
             group.getChildren.remove(shop1)
@@ -28,12 +28,7 @@ class InputManager(val player: Player) {
               tower.setEffect(brightnessChange)
             }
         }
-       pauseButton.onMouseClicked = event => {
-         player.stopGame = 1
-       }
-      continueButton.onMouseClicked = event => {
-         player.stopGame = 0
-       }
+
       if(mouseClicked == 1) {
          group.onMouseClicked = event => {
             mouseClicked = mouseClicked ^ 1

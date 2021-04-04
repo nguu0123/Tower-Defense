@@ -5,11 +5,13 @@ class Tower(val pos: Pos, val damage: Int, val shootRange: Double, val shootRate
 
   private var currentWave: Wave = null
   private var currentEnemy: Enemies = null
-  private var currentTime = System.currentTimeMillis()
+  private var lastUpdate = System.currentTimeMillis()
+  private var havePassed = System.currentTimeMillis()
+  private var havePaused = false
   private var projectiles = List[Projectile]()
   private var  towerImage: ImageView = null
   private var clicked = 0
-  private val button = FileManager.createImageView("file:src/res/button.png")
+  private val button = FileManager.createImageView("file:src/res/deleteButton.png")
    var isDestroyed = false
   val goldNeeded = Gold(100)
   def build() = {
@@ -17,6 +19,21 @@ class Tower(val pos: Pos, val damage: Int, val shootRange: Double, val shootRate
     this.towerImage.relocate(this.pos.x - 60.0, this.pos.y - 60.0)
     this.button.relocate(this.pos.x + 30, this.pos.y - 60)
     group.getChildren.add(this.towerImage)
+    this.towerImage.onMouseClicked = event => {
+       if(clicked == 0) {
+         group.getChildren.add(button)
+         clicked = clicked ^ 1
+       }
+       else {
+         group.getChildren.remove(button)
+         clicked = clicked ^ 1
+       }
+      }
+    this.button.onMouseClicked = event => {
+      player.deleteTower(this)
+      for(projectile <- this.projectiles) if(!projectile.stopUpdate) projectile.remove(this.group)
+      group.getChildren.remove(button)
+    }
   }
   def setWave(wave: Wave) = {
     this.currentWave = wave
@@ -38,31 +55,25 @@ class Tower(val pos: Pos, val damage: Int, val shootRange: Double, val shootRate
     group.getChildren.remove(this.towerImage)
   }
   def update() = {
-      this.towerImage.onMouseClicked = event => {
-       if(clicked == 0) {
-         group.getChildren.add(button)
-         clicked = clicked ^ 1
-       }
-       else {
-         group.getChildren.remove(button)
-         clicked = clicked ^ 1
-       }
-      }
-    this.button.onMouseClicked = event => {
-      player.deleteTower(this)
-      for(projectile <- this.projectiles) if(!projectile.stopUpdate) projectile.remove(this.group)
-      group.getChildren.remove(button)
-    }
-
     this.setWave(this.waveManager.getWave)
     this.setEnemy()
-      if(this.currentEnemy != null && System.currentTimeMillis() - this.currentTime > this.shootRate) {
+    this.havePassed += System.currentTimeMillis() - this.lastUpdate
+    this.lastUpdate = System.currentTimeMillis()
+    if(this.currentEnemy != null && this.havePassed > this.shootRate) {
        this.shoot()
-       this.currentTime = System.currentTimeMillis()
+       this.havePassed = 0
      }
+    //need change
      for(projectile <- this.projectiles) if(!projectile.stopUpdate) {
        projectile.update(this.group)
      }
+  }
+  def updateTime() = {
+    if(!this.havePaused) {
+      this.havePassed += System.currentTimeMillis() - this.lastUpdate
+      this.havePaused = true
+    }
+    this.lastUpdate = System.currentTimeMillis()
   }
 }
 object Tower {

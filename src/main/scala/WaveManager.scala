@@ -1,7 +1,6 @@
 import scalafx.scene.Group
 class WaveManager(group: Group, grid: Grid, val totalWave: Int, val minEnemiesPerWave: Int, val startWave: Int){
   private var currentWave: Wave = null
-  private var currentTime = System.currentTimeMillis()
   private var numberOfWave = startWave
   private var player: Player = null
   def setPlayer(player: Player) = {
@@ -16,6 +15,9 @@ class WaveManager(group: Group, grid: Grid, val totalWave: Int, val minEnemiesPe
  def update(): Unit = {
     if(this.currentWave.isCompleted && this.numberOfWave < totalWave) this.spawnWave()
     else this.currentWave.update()
+ }
+ def updateTime() = {
+   this.currentWave.updateTime()
  }
  def levelCompleted: Boolean = this.numberOfWave == this.totalWave && this.currentWave.isCompleted
 }

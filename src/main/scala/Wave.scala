@@ -1,9 +1,11 @@
 import scalafx.scene.Group
 class Wave( group: Group,  numberOfEnemies: Int,  grid: Grid, spawnRate: Int, player: Player) {
  private var enemies = List[Enemies]()
- private var currentTime = System.currentTimeMillis()
+ private var lastUpdate = System.currentTimeMillis()
+ private var havePassed = System.currentTimeMillis()
  private var enemiesSpawned = 0
- this.spawn()
+ private var nextSpawn = System.currentTimeMillis()
+ private var havePaused = false
  def getEnemies = this.enemies
  def isCompleted = this.numberOfEnemies == this.enemiesSpawned && this.enemies.forall( enemy => enemy.stopUpdate || enemy.reachGoal)
  def addEnemy(enemies: Enemies) = {
@@ -11,7 +13,8 @@ class Wave( group: Group,  numberOfEnemies: Int,  grid: Grid, spawnRate: Int, pl
  }
  def spawn() = {
   val newEnemy = Enemies(Pos(0,300), Velocity(Direction.Down, 1.5), Health(100), this.grid, Gold(10))
-    this.currentTime = System.currentTimeMillis()
+  this.havePassed = 0
+  this.lastUpdate = System.currentTimeMillis()
   this.addEnemy(newEnemy)
  }
  def update(): Unit = {
@@ -30,10 +33,19 @@ class Wave( group: Group,  numberOfEnemies: Int,  grid: Grid, spawnRate: Int, pl
         }
       }
   }
-    if(System.currentTimeMillis() - this.currentTime > spawnRate && enemiesSpawned < numberOfEnemies) {
+  this.havePassed += System.currentTimeMillis() - this.lastUpdate
+  this.lastUpdate = System.currentTimeMillis()
+    if(this.havePassed > spawnRate && enemiesSpawned < numberOfEnemies) {
      this.spawn()
      enemiesSpawned += 1
     }
  }
+  def updateTime() = {
+   if(havePaused) {
+     this.havePassed += System.currentTimeMillis() - this.lastUpdate
+     this.havePaused = true
+   }
+   this.lastUpdate = System.currentTimeMillis()
+  }
 }
 

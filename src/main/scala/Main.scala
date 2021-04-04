@@ -11,17 +11,15 @@ import scalafx.scene.text.Font
 
 import scalafx.scene.control.Label
 object test extends JFXApp {
-stage = new JFXApp.PrimaryStage {
-    title.value = "Test"
-    resizable = false
-}
 val game = new Game
-     def mainLoop = () => {
-        game.update()
-        stage.scene = game.scene
-    }
-    val ticker = new Ticker(mainLoop)
-    ticker.start()
+val gameGUI = new GameGui(game)
+stage = new JFXApp.PrimaryStage {
+    title.value = "Tower Defense"
+    resizable = false
+     scene = gameGUI
+
+}
+
 
 }
 

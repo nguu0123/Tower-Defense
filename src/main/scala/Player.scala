@@ -1,5 +1,6 @@
 import scalafx.scene.Group
 class Player(var gold: Gold, val grid: Grid, val health: Health, group: Group, waveManager: WaveManager) {
+   var stopGame = 0
    private var towers = Array[Tower]()
    def addTower(tower: Tower) = {
       tower.build()
@@ -37,5 +38,10 @@ class Player(var gold: Gold, val grid: Grid, val health: Health, group: Group, w
    for(tower <- this.towers) {
       tower.update()
    }
+  }
+  def updateTime() = {
+    for(tower <- this.towers) {
+       tower.updateTime()
+    }
   }
 }

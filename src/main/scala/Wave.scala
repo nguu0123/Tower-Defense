@@ -2,10 +2,12 @@ import scalafx.scene.Group
 class Wave( group: Group,  numberOfEnemies: Int,  grid: Grid, spawnRate: Int, player: Player) {
  private var enemies = List[Enemies]()
  private var lastUpdate = System.currentTimeMillis()
- private var havePassed = System.currentTimeMillis()
+ private var havePassed = 0f
  private var enemiesSpawned = 0
  private var nextSpawn = System.currentTimeMillis()
  private var havePaused = false
+ private var goldEarned = Gold(0)
+ def getGoldEarned = this.goldEarned
  def getEnemies = this.enemies
  def isCompleted = this.numberOfEnemies == this.enemiesSpawned && this.enemies.forall( enemy => enemy.stopUpdate || enemy.reachGoal)
  def addEnemy(enemies: Enemies) = {
@@ -24,11 +26,12 @@ class Wave( group: Group,  numberOfEnemies: Int,  grid: Grid, spawnRate: Int, pl
         enemy.remove(group)
         enemy.removeHealthBar(group)
         if(enemy.canGiveGold ) {
-          player.gold = player.gold + enemy.gold
+          this.player.gold = this.player.gold + enemy.gold
+          this.goldEarned = this.goldEarned + enemy.gold
           enemy.canGiveGold = false
         }
         if(enemy.canDamage && enemy.reachGoal) {
-          player.health.update(1)
+          this.player.health.update(1)
           enemy.canDamage = false
         }
       }
@@ -39,6 +42,9 @@ class Wave( group: Group,  numberOfEnemies: Int,  grid: Grid, spawnRate: Int, pl
      this.spawn()
      enemiesSpawned += 1
     }
+    if(numberOfEnemies == enemiesSpawned) {
+     this.havePassed = 0
+    }
  }
   def updateTime() = {
    if(havePaused) {
@@ -46,6 +52,12 @@ class Wave( group: Group,  numberOfEnemies: Int,  grid: Grid, spawnRate: Int, pl
      this.havePaused = true
    }
    this.lastUpdate = System.currentTimeMillis()
+  }
+  def deleteWave() = {
+    for(enemy <- this.enemies) {
+        enemy.remove(group)
+        enemy.removeHealthBar(group)
+     }
   }
 }
 

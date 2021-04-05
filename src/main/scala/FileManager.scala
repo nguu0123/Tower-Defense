@@ -11,6 +11,7 @@ import io.circe.parser.decode
 import javafx.util.Pair
 import scalafx.scene.image.{Image, ImageView}
 import java.io._
+import scala.io.Source
 object FileManager {
 
   val jsonString = """
@@ -73,12 +74,6 @@ object FileManager {
   def readText(source: scala.io.Source ) = source.getLines().mkString("\n")
   val fileSource   = util.Try(scala.io.Source.fromFile("foo.bar"))
   val stringSource = util.Try(scala.io.Source.fromString(jsonString))
-  val waveManagerSource = util.Try(scala.io.Source.fromString(waveManagerData))
-  val playerSource = util.Try(scala.io.Source.fromString(playerData))
- /* for(line <- scala.io.Source.fromFile("src/data/WaveManagerData.json").getLines()) {
-    println(line)
-  }*/
-
   def loadMap(grid: Grid) = {
     val maps = {
     val temp = Buffer[gridMap]()
@@ -91,18 +86,18 @@ object FileManager {
 
     temp
   }
-    grid.loadMap(maps(0).map)
+    grid.loadMap(maps.head.map)
  }
-  def loadWaveManager(): WaveManager = {
-   val waveManager =  this.readWaveManager(this.readText(this.waveManagerSource.get))
-   waveManager.get
+  def createImageView(imageLink: String): ImageView = {
+     val imageView = new ImageView(new Image(imageLink))
+    imageView
   }
   def saveWaveManager(waveManager: WaveManager): String = {
      s"""
       {
       "totalWave": ${waveManager.totalWave},
       "minEnemiesPerWave": ${waveManager.minEnemiesPerWave},
-      "startWave": ${waveManager.getWaveNumber}
+      "startWave": ${waveManager.getWaveNumber - 1}
 
     """
   }
@@ -122,37 +117,55 @@ object FileManager {
        """
    }
    ans = ans.dropRight(10)
-   ans + "]" + "\n" + "}"
-  }
-  def loadPlayer(): Player = {
-    val playerData = this.readPlayer(this.readText(this.playerSource.get)).get
-    new Player(Gold(playerData.gold), Health(playerData.health))
-  }
-  def createImageView(imageLink: String): ImageView = {
-     val imageView = new ImageView(new Image(imageLink))
-    imageView
+   ans = ans + "]" + "\n" + "}"
+   ans  + "\n" + "ENDOFFILE"
   }
   def saveGame(filePath: String,game: Game) = {
      val fileContent = Buffer[String]()
      fileContent += this.saveWaveManager(game.waveManager)
+     game.player.gold = game.player.gold - game.waveManager.getWave.getGoldEarned
      fileContent += this.savePlayer(game.player)
        try {
                 val fileWriter = new FileWriter(filePath)
                 val buffWriter = new BufferedWriter(fileWriter)
 
                 try {
-                    buffWriter.write(fileContent.mkString("}"))
+                    buffWriter.write(fileContent.mkString("} END"))
                 } finally {
                     buffWriter.close()
                 }
             } catch {
-                // Exceptions are handled by printing.
-                // This is ok during development but not optimal. This will be improved in a future code example.
                 case _: FileNotFoundException => println("Error with saving game data: Save file not found")
                 case _: IOException => println("Error with saving game data: IOException")
                 case _: Throwable => println("Error with saving game data: Unexpected exception.")
             }
-
-        }
-
+   }
+   def loadGame(filePath: String, game: Game) = {
+    val source = Source.fromFile(filePath)
+    val lines = source.getLines()
+    var currentLine = ""
+    var gameData = ""
+    while(currentLine != "ENDOFFILE" && lines.hasNext) {
+         currentLine = lines.next().trim()
+         gameData += "\n" + currentLine
+    }
+    source.close()
+    gameData = gameData.dropRight(10)
+    val fileSplitIndex = gameData.indexOf("END")
+    val waveManagerData = this.readWaveManager(gameData.substring(0, fileSplitIndex)).get
+    val playerData = this.readPlayer(gameData.substring(fileSplitIndex + 3, gameData.length)).get
+    game.waveManager = waveManagerData
+    game.waveManager.setGrid(game.grid)
+    game.waveManager.setGroup(game.gameGroup)
+    val player = new Player(Gold(playerData.gold), Health(playerData.health))
+    player.setGrid(game.grid)
+    player.setGroup(game.gameGroup)
+    player.setWaveManager(game.waveManager)
+    game.waveManager.setPlayer(player)
+    game.player = player
+    game.waveManager.spawnWave()
+    for(towerLoc <- playerData.towerLocs) {
+      player.addTowerAt(towerLoc)
+    }
+   }
 }

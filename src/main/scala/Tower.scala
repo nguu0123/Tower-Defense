@@ -53,6 +53,9 @@ class Tower(val pos: Pos, val damage: Int, val shootRange: Double, val shootRate
   def destroy() = {
     this.isDestroyed = true
     group.getChildren.remove(this.towerImage)
+     for(projectile <- this.projectiles) if(!projectile.stopUpdate) {
+       projectile.remove(this.group)
+     }
   }
   def update() = {
     this.setWave(this.waveManager.getWave)

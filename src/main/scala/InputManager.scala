@@ -5,7 +5,7 @@ import scalafx.Includes._
 import scalafx.scene.input.MouseButton
 import scalafx.scene.paint.Color
 import scalafx.scene.shape.Circle
-class InputManager(val player: Player) {
+class InputManager(var player: Player) {
 
     // Sets do not allow duplicates, so they are useful here
     val brightnessChange = new ColorAdjust()
@@ -14,6 +14,9 @@ class InputManager(val player: Player) {
     var mouseClicked = 0
     val shop1 = FileManager.createImageView("file:src/res/tower1.png")
     //can add circle that show tower shootRange => dont know how to do that//
+    def setPlayer(player: Player) = {
+     this.player = player
+    }
     def handleInput(tower: ImageView, group: Group) = {
         tower.onMouseClicked = event => {
             mouseClicked = mouseClicked ^ 1
@@ -34,12 +37,12 @@ class InputManager(val player: Player) {
             mouseClicked = mouseClicked ^ 1
             group.getChildren.remove(shop1)
             brightnessChange.setBrightness(0)
-            if(player.canBuild(Pos(event.getSceneX, event.getSceneY))) player.buildTower(Pos(event.getSceneX, event.getSceneY))
+            if(this.player.canBuild(Pos(event.getSceneX, event.getSceneY))) this.player.buildTower(Pos(event.getSceneX, event.getSceneY))
          }
          group.onMouseMoved = event => {
           group.getChildren.remove(shop1)
           val pos = (event.getSceneX - 60, event.getSceneY - 60)
-           if(player.canBuild(Pos(event.getSceneX, event.getSceneY))) {
+           if(this.player.canBuild(Pos(event.getSceneX, event.getSceneY))) {
              colorChange.setHue(0.4)
            }
            else {

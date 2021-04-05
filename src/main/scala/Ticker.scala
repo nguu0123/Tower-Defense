@@ -1,7 +1,7 @@
 import javafx.animation.AnimationTimer
 
 //This class calls function given as a parameter repeatedly.
-class Ticker(function: () => Unit) extends AnimationTimer {
+class Ticker(function: => Unit) extends AnimationTimer {
     var previousUpdate = System.nanoTime()
     var lag = 0.0
     val updatesPerSecond: Double = 120 // Not real time, but granularity.
@@ -9,7 +9,7 @@ class Ticker(function: () => Unit) extends AnimationTimer {
     //Override from animation timer
     override def handle(now: Long): Unit = {
       if(now - previousUpdate >= nsPerUpdate) {
-          function()
+          function
           previousUpdate = now
       }
     }

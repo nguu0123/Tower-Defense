@@ -38,33 +38,9 @@ object FileManager {
       [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0]
-
       ]
       }
    ]
-  """
-  val playerData = """
-   {
-      "gold": 1000,
-      "health": 20,
-      "towerLocs": [
-         {
-            "x": 720.0,
-            "y": 60.0
-         },
-         {
-           "x": 120.0,
-           "y":60.0
-         }
-      ]
-  }
-  """
-  val waveManagerData = """
-  {
-      "totalWave": 3,
-      "minEnemiesPerWave": 5,
-      "startWave": 0
-  }
   """
   case class gridMap(map: Array[Array[Int]])
   case class playerAndTowerLoc(gold: Int, health: Int, towerLocs: List[Pos])

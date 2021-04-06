@@ -8,8 +8,9 @@ class Tower(val pos: Pos, val damage: Int, val shootRange: Double, val shootRate
   private var lastUpdate = System.currentTimeMillis()
   private var havePassed = System.currentTimeMillis()
   private var havePaused = false
+  /** using List as each tower usually shoot 1 or 2 shoot until the first shoot hit => concat and deconstruct small and foreeach little */
   private var projectiles = List[Projectile]()
-  private var  towerImage: ImageView = null
+  private var towerImage: ImageView = null
   private var clicked = 0
   private val button = FileManager.createImageView("file:src/res/deleteButton.png")
    var isDestroyed = false
@@ -31,7 +32,7 @@ class Tower(val pos: Pos, val damage: Int, val shootRange: Double, val shootRate
       }
     this.button.onMouseClicked = event => {
       player.deleteTower(this)
-      for(projectile <- this.projectiles) if(!projectile.stopUpdate) projectile.remove(this.group)
+      for(projectile <- this.projectiles)  projectile.remove(this.group)
       group.getChildren.remove(button)
     }
   }
@@ -66,11 +67,12 @@ class Tower(val pos: Pos, val damage: Int, val shootRange: Double, val shootRate
        this.shoot()
        this.havePassed = 0
      }
-    //need change
-     for(projectile <- this.projectiles) if(!projectile.stopUpdate) {
-       projectile.update(this.group)
+     this.projectiles = this.projectiles.filter(projectile => !projectile.stopUpdate)
+     for(projectile <- this.projectiles) {
+         projectile.update(this.group)
      }
   }
+
   def updateTime() = {
     if(!this.havePaused) {
       this.havePassed += System.currentTimeMillis() - this.lastUpdate

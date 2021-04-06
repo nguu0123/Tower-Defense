@@ -8,7 +8,7 @@ class GameGui(game: Game) extends Scene {
   mainMenu.playButton.onAction = (event) => this.toGame()
   mainMenu.guideButton.onAction = event => this.toGuide()
   mainMenu.loadButton.onAction = event => this.loadGame()
-  def mainLoop = {
+  def mainLoop: Unit = {
         if(game.backToMenu) {
           this.ticker.stop()
           this.toMenu()

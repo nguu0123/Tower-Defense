@@ -93,7 +93,7 @@ this.waveManager.spawnWave()
         this.waveManager.updateTime()
         this.player.updateTime()
       }
-        val currentSecond = System.currentTimeMillis()
+       val currentSecond = System.currentTimeMillis()
        if(currentSecond > nextSecond) {
          nextSecond += 1000
          frameLastSecond = frameCurrentSecond

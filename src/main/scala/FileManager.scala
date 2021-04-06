@@ -101,6 +101,7 @@ object FileManager {
      val fileContent = Buffer[String]()
      fileContent += this.saveWaveManager(game.waveManager)
      game.player.gold = game.player.gold - game.waveManager.getWave.getGoldEarned
+     game.player.health.currentHealth += game.waveManager.getWave.getDamageDealt
      fileContent += this.savePlayer(game.player)
        try {
                 val fileWriter = new FileWriter(filePath)

@@ -12,7 +12,7 @@ class PlayerHealth(var player: Player, VBox: VBox)  {
    healthBar.getChildren.add(healthPercentage)
    VBox.getChildren.add(healthBar)
    def update() = {
-     if(this.player.health.percent > 0.05) healthPercentage.setFitWidth(278 * this.player.health.percent)
+     if(this.player.health.percent > 0.04) healthPercentage.setFitWidth(278 * this.player.health.percent)
      else  healthPercentage.setFitWidth(278 * 0.001)
    }
    def setPlayer(player: Player) = {

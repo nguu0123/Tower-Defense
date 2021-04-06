@@ -7,6 +7,8 @@ import scalafx.Includes._
 import scalafx.scene.text.Font
 class Game {
 var backToMenu = false
+var gameLose = false
+var gameWon = false
 val grid = new Grid(1200, 720)
 val gameGroup = new Group() //Simple pane component
 val root = new BorderPane()
@@ -88,11 +90,20 @@ this.waveManager.spawnWave()
          playerHealth.update()
          this.waveManager.update()
          this.player.update()
+         if(this.waveManager.levelCompleted) {
+           this.gameWon = true
+        }
        }
       else if (this.player.stopGame == 1) {
         this.waveManager.updateTime()
         this.player.updateTime()
       }
+      else if (this.player.health.isDead) {
+          this.gameLose = true
+          playerHealth.update()
+        }
+
+
        val currentSecond = System.currentTimeMillis()
        if(currentSecond > nextSecond) {
          nextSecond += 1000

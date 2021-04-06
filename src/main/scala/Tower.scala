@@ -14,7 +14,7 @@ class Tower(val pos: Pos, val damage: Int, val shootRange: Double, val shootRate
   private var clicked = 0
   private val button = FileManager.createImageView("file:src/res/deleteButton.png")
    var isDestroyed = false
-  val goldNeeded = Gold(100)
+  val goldNeeded = Gold(150)
   def build() = {
     this.towerImage = FileManager.createImageView("file:src/res/Tower1.png")
     this.towerImage.relocate(this.pos.x - 60.0, this.pos.y - 60.0)

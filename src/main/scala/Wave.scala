@@ -7,7 +7,9 @@ class Wave( group: Group,  numberOfEnemies: Int,  grid: Grid, spawnRate: Int, pl
  private var nextSpawn = System.currentTimeMillis()
  private var havePaused = false
  private var goldEarned = Gold(0)
+ private var damageDealt = 0
  def getGoldEarned = this.goldEarned
+ def getDamageDealt = this.damageDealt
  def getEnemies = this.enemies
  def isCompleted = this.numberOfEnemies == this.enemiesSpawned && this.enemies.forall( enemy => enemy.stopUpdate || enemy.reachGoal)
  def addEnemy(enemies: Enemies) = {
@@ -32,6 +34,7 @@ class Wave( group: Group,  numberOfEnemies: Int,  grid: Grid, spawnRate: Int, pl
         }
         if(enemy.canDamage && enemy.reachGoal) {
           this.player.health.update(1)
+          this.damageDealt += 1
           enemy.canDamage = false
         }
       }

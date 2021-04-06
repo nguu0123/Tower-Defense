@@ -32,5 +32,8 @@ class WaveManager(val totalWave: Int, val minEnemiesPerWave: Int, val startWave:
   this.currentWave.deleteWave()
   this.spawnWave()
  }
- def levelCompleted: Boolean = this.numberOfWave == this.totalWave && this.currentWave.isCompleted
+ def levelCompleted: Boolean = {
+   println(this.numberOfWave)
+   this.numberOfWave == this.totalWave && this.currentWave.isCompleted
+ }
 }

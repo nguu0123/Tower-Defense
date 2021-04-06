@@ -28,7 +28,7 @@ class WaveManager(val totalWave: Int, val minEnemiesPerWave: Int, val startWave:
    this.currentWave.updateTime()
  }
  def restart() = {
-  this.numberOfWave = this.startWave
+  this.numberOfWave = 0
   this.currentWave.deleteWave()
   this.spawnWave()
  }

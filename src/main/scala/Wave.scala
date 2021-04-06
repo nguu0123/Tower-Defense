@@ -14,7 +14,7 @@ class Wave( group: Group,  numberOfEnemies: Int,  grid: Grid, spawnRate: Int, pl
    this.enemies = this.enemies ++ List(enemies)
  }
  def spawn() = {
-  val newEnemy = Enemies(Pos(0,300), Velocity(Direction.Down, 1.5), Health(100), this.grid, Gold(10))
+  val newEnemy = Enemies(Pos(0,300), Velocity(Direction.Down, 1.5), Health(100,100), this.grid, Gold(10))
   this.havePassed = 0
   this.lastUpdate = System.currentTimeMillis()
   this.addEnemy(newEnemy)

@@ -43,7 +43,7 @@ object FileManager {
    ]
   """
   case class gridMap(map: Array[Array[Int]])
-  case class playerAndTowerLoc(gold: Int, health: Int, towerLocs: List[Pos])
+  case class playerAndTowerLoc(gold: Int, currentHealth: Int, maxHealth: Int, towerLocs: List[Pos])
   def readJson(text: String ) = decode[List[gridMap]](text).toTry
   def readWaveManager(text: String) = decode[WaveManager](text).toTry
   def readPlayer(text: String) = decode[playerAndTowerLoc](text).toTry
@@ -81,7 +81,8 @@ object FileManager {
       var ans =  s"""
    {
       "gold": ${player.gold.currentGold},
-      "health": ${player.health.currentHealth},
+      "currentHealth" : ${player.health.currentHealth},
+      "maxHealth": ${player.health.maxHealth},
       "towerLocs": [
   """
    for(tower <- player.getTower) {
@@ -92,7 +93,7 @@ object FileManager {
         },
        """
    }
-   ans = ans.dropRight(10)
+   if(player.getTower.nonEmpty) ans = ans.dropRight(10)
    ans = ans + "]" + "\n" + "}"
    ans  + "\n" + "ENDOFFILE"
   }
@@ -133,7 +134,7 @@ object FileManager {
     game.waveManager = waveManagerData
     game.waveManager.setGrid(game.grid)
     game.waveManager.setGroup(game.gameGroup)
-    val player = new Player(Gold(playerData.gold), Health(playerData.health))
+    val player = new Player(Gold(playerData.gold), Health(playerData.currentHealth, playerData.maxHealth))
     player.setGrid(game.grid)
     player.setGroup(game.gameGroup)
     player.setWaveManager(game.waveManager)

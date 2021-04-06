@@ -62,6 +62,6 @@ class Player(var gold: Gold, var health: Health) {
       this.deleteTower(tower)
     }
     this.gold = Gold(1000)
-    this.health = Health(20)
+    this.health = Health(20, 20)
   }
 }

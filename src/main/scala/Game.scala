@@ -27,7 +27,7 @@ val g = canvas.graphicsContext2D
 FileManager.loadMap(grid)
 grid.draw(g)
 gameGroup.getChildren.add(canvas)
-var waveManager = new WaveManager(3, 5, 0)
+var waveManager = new WaveManager(5, 5, 0)
 this.waveManager.setGrid(grid)
 this.waveManager.setGroup(gameGroup)
 var player = new Player(Gold(1000), Health(20,20))
@@ -111,6 +111,7 @@ this.waveManager.spawnWave()
          frameCurrentSecond = 0
        }
        frameCurrentSecond += 1
+       println(frameLastSecond)
   }
   def newGame() = {
     waveSystem.setWaveManager(this.waveManager)

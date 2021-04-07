@@ -1,8 +1,8 @@
 import scalafx.scene.image.{Image, ImageView}
 import scalafx.scene.Group
 class Enemies(var pos:Pos, var velocity: Velocity, val health: Health, val grid: Grid, val gold: Gold)  {
-  private lazy val aliveImages = (0 until 5).map(x => FileManager.createImageView("file:src/res/run" + x + ".png"))
-  private lazy val deadImages = (0 until 5).map(x => FileManager.createImageView("file:src/res/dead" + x + ".png"))
+  private lazy val aliveImages = (0 until 20).map(x => FileManager.createImageView("file:src/res/greenMonsterTest/run" + x + ".png"))
+  private lazy val deadImages = (0 until 20).map(x => FileManager.createImageView("file:src/res/greenMonsterTest/die" + x + ".png"))
   private val healtPercent = FileManager.createImageView("file:src/res/Health0.png")
   private val healthBorder = FileManager.createImageView("file:src/res/Health1.png")
   private val healthBackground = FileManager.createImageView("file:src/res/Health2.png")
@@ -33,9 +33,9 @@ class Enemies(var pos:Pos, var velocity: Velocity, val health: Health, val grid:
   }
   def remove(group: Group) = {
     group.getChildren.remove(this.images(state)(index))
-    time = (time + 1) % 10
-    if(time == 0) index = (index + 1) % 5
-    if(state == 0 && index == 4)   stopUpdate = true
+    time = (time + 1) % 3
+    if(time == 0) index = (index + 1) % 20
+    if(state == 0 && index == 19)   stopUpdate = true
 
   }
   def nextDirection: Direction = {

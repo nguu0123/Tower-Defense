@@ -31,9 +31,9 @@ class Player(var gold: Gold, var health: Health) {
      this.addTower(Tower(pos, 10, 200.0, 500, group, this.waveManager, this))
   }
   def buildTower(pos: Pos) = {
-    if(this.gold.canBuild(Gold(100))) {
+    if(this.gold.canBuild(Gold(150))) {
        val buildPos = pos.approximate
-       this.addTower((Tower(buildPos, 10, 200.0, 500, group, this.waveManager, this)) )
+       this.addTower((Tower(buildPos, 10, 300.0, 500, group, this.waveManager, this)) )
        this.gold = this.gold - Gold(150)
     }
   }
@@ -61,7 +61,7 @@ class Player(var gold: Gold, var health: Health) {
    for(tower <- this.towers) {
       this.deleteTower(tower)
     }
-    this.gold = Gold(1000)
+    this.gold = Gold(400)
     this.health = Health(20, 20)
   }
 }

@@ -17,7 +17,7 @@ class WaveManager(val totalWave: Int, val minEnemiesPerWave: Int, val startWave:
   def getWave = this.currentWave
   def getWaveNumber = this.numberOfWave
   def spawnWave() = {
-   this.currentWave = new Wave(this.group, this.minEnemiesPerWave + 3 * this.numberOfWave, this.grid ,1000, this.player)
+   this.currentWave = new Wave(this.group, this.minEnemiesPerWave + 2 * this.numberOfWave, this.grid ,1000, this.player)
    this.numberOfWave += 1
   }
  def update(): Unit = {

@@ -10,9 +10,9 @@ var backToMenu = false
 var gameLose = false
 var gameWon = false
 val grid = new Grid(1200, 720)
-val gameGroup = new Group() //Simple pane component
+val gameGroup = new Group()
 val root = new BorderPane()
-val canvas = new Canvas(1200, 720) //Give width and height as a parameter.
+val canvas = new Canvas(1200, 720)
 val VBox = new VBox {
   spacing = 30
   padding = Insets(40, 0, 40,0)
@@ -20,7 +20,7 @@ val VBox = new VBox {
 VBox.setPrefWidth(300)
 VBox.setPrefHeight(720)
 VBox.setBackground(new Background(Array(new BackgroundFill(Color.Black, CornerRadii.Empty, Insets.Empty) ) ) )
-val shop = FileManager.createImageView("file:src/res/Shop1.png")
+val shop0 = FileManager.createImageView("file:src/res/Shop1.png")
 val shop1 = FileManager.createImageView("file:src/res/Shop2.png")
 val shop2 = FileManager.createImageView("file:src/res/Shop3.png")
 val g = canvas.graphicsContext2D
@@ -61,7 +61,8 @@ val towerImages = new HBox {
    padding = Insets(0, 20, 0, 20)
    spacing = 30
 }
-towerImages.getChildren.addAll(shop, shop1, shop2)
+towerImages.getChildren.addAll(shop0, shop1, shop2)
+val shopImage = Vector(shop0, shop1, shop2)
 VBox.getChildren.add(towerImages)
 root.setCenter(gameGroup)
 root.setRight(VBox)
@@ -83,7 +84,7 @@ this.waveManager.spawnWave()
     this.waveManager.restart()
   }
   def update() = {
-      inputManager.handleInput(shop1, gameGroup)
+      inputManager.handleInput(shopImage, gameGroup)
       goldSystem.update()
       if(!this.player.health.isDead && this.player.stopGame == 0){
          waveSystem.update()

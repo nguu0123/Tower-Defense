@@ -15,3 +15,10 @@ Week 4:
    I have fixed the fps at around 60 fps so that the game will function the same in different computer.
    My coding routine is still the same
    The progress is not the same as I expected but I think I'm not lagging behind
+Week 6:
+   Adding two new kinds of tower and 1 type of monster.
+   Most of GUI components is  finished (gameMenu, gameGUI, guideMenu). Only choosing map is left.
+   FileManager can save and load the previous game.
+   1 bug remained not fixed: when player built tower from the gold received during the way => save game will not remove that tower and the gold becomes negative.
+   My coding routine is still the same.
+   The progress is very good. I'm almost done everything.

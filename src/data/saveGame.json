@@ -2,18 +2,25 @@
       {
       "totalWave": 5,
       "minEnemiesPerWave": 5,
-      "startWave": 1
+      "startWave": 0
 
     } END
    {
-      "gold": 300,
-      "currentHealth" : 15,
+      "gold": 155,
+      "currentHealth" : 20,
       "maxHealth": 20,
       "towerLocs": [
   
         {
-          "x": 600.0,
+          "x": 240.0,
           "y": 420.0
-        }]
+        },
+       
+        {
+          "x": 420.0,
+          "y": 300.0
+        }],
+ "towerCode": [
+  0,  0]
 }
 ENDOFFILE

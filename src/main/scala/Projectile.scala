@@ -1,12 +1,13 @@
 import scalafx.scene.shape.Rectangle
 import scalafx.scene.paint.Color._
 import scalafx.scene.Group
-class Projectile(var pos: Pos, val speed: Double, val radious: Double, val target: Enemies, val damage: Int) {
+class Projectile(var pos: Pos, val speed: Double, val radious: Double, val target: Enemies, val damage: Int, filePath: String) {
    var velocity = Velocity( Direction.Up, this.speed)
    val radiousSq = radious * radious
    var stopUpdate = false
    var haveFired = false
-    val projectileImage = FileManager.createImageView("file:src/res/Fireball1.png")
+   val projectileImage = FileManager.createImageView(filePath)
+   val rotate = !(filePath == "file:src/res/Rock.png")
   def draw(group: Group) = {
     if(!haveFired) {
       group.getChildren.add(this.projectileImage)
@@ -24,7 +25,7 @@ class Projectile(var pos: Pos, val speed: Double, val radious: Double, val targe
          val direction = target.center - this.pos
          val newDirection = Direction.fromDeltas(direction.x, direction.y)
          this.velocity = this.velocity.changeDirection(newDirection)
-         this.projectileImage.rotate = -newDirection.toDegree + 30
+         if(rotate) this.projectileImage.rotate = -newDirection.toDegree + 30
          this.pos = this.pos.nextPos(this.velocity)
          this.projectileImage.relocate(this.pos.x, this.pos.y)
          if(this.hitTarget) {
@@ -39,5 +40,5 @@ class Projectile(var pos: Pos, val speed: Double, val radious: Double, val targe
    }
 }
 object Projectile {
- def apply(pos: Pos, speed: Double, radious: Double, target: Enemies, damage: Int) = new Projectile(pos, speed, radious, target, damage)
+ def apply(pos: Pos, speed: Double, radious: Double, target: Enemies, damage: Int, filePath: String) = new Projectile(pos, speed, radious, target, damage, filePath)
 }

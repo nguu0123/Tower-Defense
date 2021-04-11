@@ -1,4 +1,4 @@
-name := "Tower Defense"
+name := "AttackTower Defense"
 
 version := "0.1"
 

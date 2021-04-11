@@ -27,14 +27,25 @@ class Player(var gold: Gold, var health: Health) {
    def canBuild(pos: Pos): Boolean = {
      grid.canBuildAt(pos) && grid.canBuildAt(pos - Pos(60, 0)) && grid.canBuildAt(pos - Pos(0, 60)) && grid.canBuildAt(pos - Pos(60, 60))
    }
-  def addTowerAt(pos: Pos) = {
-     this.addTower(Tower(pos, 10, 200.0, 500, group, this.waveManager, this))
+  def addTowerAt(towerCode: Int,pos: Pos) = {
+     if(towerCode == 1)      this.addTower(AttackTower.createFireTower(pos, group, this.waveManager, this))
+     else if(towerCode == 0) this.addTower(AttackTower.createRockTower(pos, group, this.waveManager, this))
   }
-  def buildTower(pos: Pos) = {
-    if(this.gold.canBuild(Gold(150))) {
+  def buildTower(towerChosen:Int, pos: Pos) = {
+    if(towerChosen == 1 && this.gold.canBuild(Gold(150))) {
        val buildPos = pos.approximate
-       this.addTower((Tower(buildPos, 10, 300.0, 500, group, this.waveManager, this)) )
+       this.addTower((AttackTower.createFireTower(buildPos, group, this.waveManager, this)) )
        this.gold = this.gold - Gold(150)
+    }
+    else if(towerChosen == 0 && this.gold.canBuild(Gold(100))) {
+       val buildPos = pos.approximate
+       this.addTower((AttackTower.createRockTower(buildPos, group, this.waveManager, this)) )
+       this.gold = this.gold - Gold(100)
+    }
+    else if(towerChosen == 2 && this.gold.canBuild(Gold(50))){
+      val buildPos = pos.approximate
+       this.addTower((GoldTower.createTower(buildPos, group, this.waveManager, this)) )
+       this.gold = this.gold - Gold(50)
     }
   }
   def deleteTower(tower: Tower) = {

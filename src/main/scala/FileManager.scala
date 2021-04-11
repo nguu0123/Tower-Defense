@@ -43,7 +43,7 @@ object FileManager {
    ]
   """
   case class gridMap(map: Array[Array[Int]])
-  case class playerAndTowerLoc(gold: Int, currentHealth: Int, maxHealth: Int, towerLocs: List[Pos])
+  case class playerAndTowerLoc(gold: Int, currentHealth: Int, maxHealth: Int, towerLocs: List[Pos], towerCode: List[Int])
   def readJson(text: String ) = decode[List[gridMap]](text).toTry
   def readWaveManager(text: String) = decode[WaveManager](text).toTry
   def readPlayer(text: String) = decode[playerAndTowerLoc](text).toTry
@@ -94,13 +94,21 @@ object FileManager {
        """
    }
    if(player.getTower.nonEmpty) ans = ans.dropRight(10)
-   ans = ans + "]" + "\n" + "}"
-   ans  + "\n" + "ENDOFFILE"
+    ans = ans + "]," + "\n"
+    ans += """ "towerCode": [""" + "\n"
+   for(tower <- player.getTower) {
+    ans += s"""  ${tower.towerNumer},"""
+   }
+    if(player.getTower.nonEmpty) ans = ans.dropRight(1)
+    ans = ans + "]" + "\n"
+   ans + "}" + "\n" + "ENDOFFILE"
   }
   def saveGame(filePath: String,game: Game) = {
      val fileContent = Buffer[String]()
      fileContent += this.saveWaveManager(game.waveManager)
-     game.player.gold = game.player.gold - game.waveManager.getWave.getGoldEarned
+       /** bug if player build tower with money that earned from the wave */
+     val goldEarned = game.waveManager.getWave.getGoldEarned
+      game.player.gold = game.player.gold - goldEarned
      game.player.health.currentHealth += game.waveManager.getWave.getDamageDealt
      fileContent += this.savePlayer(game.player)
        try {
@@ -142,8 +150,10 @@ object FileManager {
     game.waveManager.setPlayer(player)
     game.player = player
     game.waveManager.spawnWave()
+    var index = 0
     for(towerLoc <- playerData.towerLocs) {
-      player.addTowerAt(towerLoc)
+      player.addTowerAt(playerData.towerCode(index),towerLoc)
+      index += 1
     }
    }
 }

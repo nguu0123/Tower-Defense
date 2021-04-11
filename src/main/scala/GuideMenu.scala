@@ -11,7 +11,7 @@ class GuideMenu(gameGui: GameGui) {
         background = new Background(
             Array(
                 new BackgroundImage(
-                    new Image("file:src/res/backButton1.png"),
+                    new Image("file:src/res/backButton.png"),
                     BackgroundRepeat.NoRepeat,
                     BackgroundRepeat.NoRepeat,
                     BackgroundPosition.Center,

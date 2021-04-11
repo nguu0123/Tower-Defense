@@ -1,5 +1,6 @@
 import scalafx.scene.Group
 class Wave( group: Group,  numberOfEnemies: Int,  grid: Grid, spawnRate: Int, player: Player) {
+ private val ran = scala.util.Random
  private var enemies = List[Enemies]()
  private var lastUpdate = System.currentTimeMillis()
  private var havePassed = 0f
@@ -16,7 +17,12 @@ class Wave( group: Group,  numberOfEnemies: Int,  grid: Grid, spawnRate: Int, pl
    this.enemies = this.enemies ++ List(enemies)
  }
  def spawn() = {
-  val newEnemy = Enemies(Pos(0,300), Velocity(Direction.Down, 1.5), Health(80,80), this.grid, Gold(10))
+  val newEnemy = {
+    if (this.ran.nextInt(2) == 0)
+      Enemies.createBrainlessMonster(Pos(0, 300), this.grid)
+   else
+      Enemies.createGreenMonster(Pos(0, 300), this.grid)
+  }
   this.havePassed = 0
   this.lastUpdate = System.currentTimeMillis()
   this.addEnemy(newEnemy)

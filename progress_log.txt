@@ -1,5 +1,5 @@
 First 3 weeks:
-   Adding basic game logic: class Grid and the logic classes (direction, velocity,..). Logic class has been tested by manual testing: create test and compare it with result computed by hand
+   Adding basic game logic: class GameComponent.Grid and the logic classes (direction, velocity,..). Logic class has been tested by manual testing: create test and compare it with result computed by hand
    Making the first enemy type: can find their own way through the map by moving to the next similar square, have running and dieing animation
    Making the first tower type: can target the enemy ans shoot a projectile to it.
    Filemanger can load map and will then be implemented to load and save game

@@ -6,21 +6,14 @@
 
     } END
    {
-      "gold": 155,
+      "gold": 400,
       "currentHealth" : 20,
       "maxHealth": 20,
       "towerLocs": [
-  
-        {
-          "x": 240.0,
-          "y": 420.0
-        },
-       
-        {
-          "x": 420.0,
-          "y": 300.0
-        }],
+  ],
  "towerCode": [
-  0,  0]
-}
+]
+,
+       "mapNumber" : 1
+      }
 ENDOFFILE

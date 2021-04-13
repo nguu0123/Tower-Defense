@@ -7,6 +7,7 @@ class AttackTower(towerNumber: Int,goldNeeded: Gold, pos: Pos, val damage: Int, 
   private var currentEnemy: Enemies = null
   /** using List as each tower usually shoot 1 or 2 shoot until the first shoot hit => concat and deconstruct small and foreeach little */
   private var projectiles = List[Projectile]()
+
   def setWave(wave: Wave) = {
     this.currentWave = wave
   }
@@ -25,9 +26,8 @@ class AttackTower(towerNumber: Int,goldNeeded: Gold, pos: Pos, val damage: Int, 
   def destroy() = {
     this.isDestroyed = true
     group.getChildren.remove(this.towerImage)
-     for(projectile <- this.projectiles) if(!projectile.stopUpdate) {
-       projectile.remove(this.group)
-     }
+     for(projectile <- this.projectiles)   projectile.remove(this.group)
+
     group.getChildren.remove(this.button)
   }
   def update() = {

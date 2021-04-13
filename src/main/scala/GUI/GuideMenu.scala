@@ -6,24 +6,24 @@ import scalafx.scene.control.Button
 import scalafx.scene.image.Image
 import scalafx.scene.layout._
 class GuideMenu(gameGui: GameGui) {
-   val pages = (0 to 3).map(index => FileManager.createImageView("file:src/res/guide" + index + ".png"))
-   private var index = 0
-   val backButton = new Button {
-        prefWidth = 90
-        prefHeight = 60
-        background = new Background(
-            Array(
-                new BackgroundImage(
-                    new Image("file:src/res/backButton.png"),
-                    BackgroundRepeat.NoRepeat,
-                    BackgroundRepeat.NoRepeat,
-                    BackgroundPosition.Center,
-                    new BackgroundSize(90, 60, true, true, true, true)
-                )
-            )
-        )
+  val pages = (0 to 3).map(index => FileManager.createImageView("file:src/res/guide" + index + ".png"))
+  private var index = 0
+  val backButton = new Button {
+       prefWidth = 90
+       prefHeight = 60
+       background = new Background(
+           Array(
+               new BackgroundImage(
+                   new Image("file:src/res/backButton.png"),
+                   BackgroundRepeat.NoRepeat,
+                   BackgroundRepeat.NoRepeat,
+                   BackgroundPosition.Center,
+                   new BackgroundSize(90, 60, true, true, true, true)
+               )
+           )
+       )
 
-    }
+   }
   val nextButton = new Button {
         prefWidth = 90
         prefHeight = 60
@@ -43,6 +43,7 @@ class GuideMenu(gameGui: GameGui) {
   backButton.relocate(1100,600)
   nextButton.relocate(1200,600)
   val content = new Group(pages(index), backButton, nextButton)
+
   def next() = {
     if(index < 3){
       this.content.getChildren.removeAll(pages(index), backButton, nextButton)

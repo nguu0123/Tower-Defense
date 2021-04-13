@@ -8,7 +8,7 @@ final case class Velocity(val direction: Direction, val speed: Double) {
   def +(another: Velocity): Velocity = Velocity(this.dx + another.dx, this.dy + another.dy)
   def -(another: Velocity): Velocity = Velocity(this.dx - another.dx, this.dy - another.dy)
   def *(multiplier: Double): Velocity = this.copy(speed = this.speed * multiplier)
-  def /(multiplier: Double): Velocity = this.copy(speed = this.speed / multiplier)
+  def /(dividor: Double): Velocity = this.copy(speed = this.speed / dividor)
   def changeDirection(newDirection: Direction): Velocity = this.copy(direction = newDirection)
   def changeSpeed(newSpeed: Double): Velocity = this.copy(speed = newSpeed)
   def faster(amount: Double): Velocity = this.copy(speed = max(this.speed + amount, 0) )

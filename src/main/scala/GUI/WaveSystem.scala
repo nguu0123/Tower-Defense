@@ -1,14 +1,12 @@
 package GUI
 
 import scalafx.geometry.Insets
-import scalafx.scene.Group
 import scalafx.scene.control.Label
 import scalafx.scene.layout.VBox
 import scalafx.scene.paint.Color
 import scalafx.scene.text.Font
 import GameComponent.WaveManager
 class WaveSystem(var waveManager: WaveManager, font: Font, VBox: VBox){
-  val waveSystem = new Group()
   val wave = new Label()
   var totalWave = this.waveManager.totalWave
   wave.setFont(font)

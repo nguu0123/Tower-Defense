@@ -9,6 +9,7 @@ class Player(var gold: Gold, var health: Health) {
    private var grid: Grid = null
    private var group: Group = null
    private var waveManager: WaveManager = null
+
    def setGrid(grid: Grid) = {
      this.grid = grid
    }

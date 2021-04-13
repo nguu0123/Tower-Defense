@@ -11,37 +11,38 @@ abstract class Tower(val towerNumer: Int,  val goldNeeded: Gold, val pos: Pos, v
    var towerImage: ImageView = null
    var clicked = 0
    val button = FileManager.createImageView("file:src/res/deleteButton.png")
-  var isDestroyed = false
-  def build() = {
-    this.towerImage = FileManager.createImageView(towerFile)
-    this.towerImage.relocate(this.pos.x - 60.0, this.pos.y - 60.0)
-    this.button.relocate(this.pos.x + 30, this.pos.y - 60)
-    group.getChildren.add(this.towerImage)
-    this.towerImage.onMouseClicked = event => {
-       if(clicked == 0) {
-         group.getChildren.add(button)
-         clicked = clicked ^ 1
-       }
-       else {
-         group.getChildren.remove(button)
-         clicked = clicked ^ 1
-       }
-      }
-    this.button.onMouseClicked = event => {
-      player.deleteTower(this)
-      group.getChildren.remove(button)
-    }
-  }
+   var isDestroyed = false
 
-  def destroy(): Unit
-  def update(): Unit
-  def updateTime() = {
-    if(!this.havePaused) {
-      this.havePassed += System.currentTimeMillis() - this.lastUpdate
-      this.havePaused = true
-    }
-    this.lastUpdate = System.currentTimeMillis()
-  }
+   def build() = {
+     this.towerImage = FileManager.createImageView(towerFile)
+     this.towerImage.relocate(this.pos.x - 60.0, this.pos.y - 60.0)
+     this.button.relocate(this.pos.x + 30, this.pos.y - 60)
+     group.getChildren.add(this.towerImage)
+     this.towerImage.onMouseClicked = event => {
+        if(clicked == 0) {
+          group.getChildren.add(button)
+          clicked = clicked ^ 1
+        }
+        else {
+          group.getChildren.remove(button)
+          clicked = clicked ^ 1
+        }
+       }
+     this.button.onMouseClicked = event => {
+       player.deleteTower(this)
+       group.getChildren.remove(button)
+     }
+   }
+  
+    def destroy(): Unit
+    def update(): Unit
+    def updateTime() = {
+      if(!this.havePaused) {
+        this.havePassed += System.currentTimeMillis() - this.lastUpdate
+        this.havePaused = true
+      }
+      this.lastUpdate = System.currentTimeMillis()
+   }
 }
 
 

@@ -9,8 +9,10 @@ class WaveManager(val totalWave: Int, val minEnemiesPerWave: Int, val startWave:
   private var group: Group = null
   private var grid: Grid = null
   private var spawnLoc: Pos = null
+  /** using previous gold and towers to store game progress of the player */
   private var previousPlayerGold = Gold(0)
   private var previousTowers = Array[Tower]()
+
   def setPlayer(player: Player) = {
      this.player = player
   }
@@ -33,20 +35,22 @@ class WaveManager(val totalWave: Int, val minEnemiesPerWave: Int, val startWave:
    this.currentWave = new Wave(this.group, this.minEnemiesPerWave + 2 * this.numberOfWave, this.grid ,1000, this.player, this.spawnLoc)
    this.numberOfWave += 1
   }
- def update(): Unit = {
-    if(this.currentWave.isCompleted && this.numberOfWave < totalWave)  this.spawnWave()
+  def update(): Unit = {
+     if(this.currentWave.isCompleted && this.numberOfWave < totalWave) {
+       this.spawnWave()
+     }
 
-    else this.currentWave.update()
- }
- def updateTime() = {
-   this.currentWave.updateTime()
- }
- def restart() = {
-  this.numberOfWave = 0
-  this.currentWave.deleteWave()
-  this.spawnWave()
- }
- def levelCompleted: Boolean = {
-   this.numberOfWave == this.totalWave && this.currentWave.isCompleted
- }
+     else this.currentWave.update()
+  }
+  def updateTime() = {
+    this.currentWave.updateTime()
+  }
+  def restart() = {
+   this.numberOfWave = 0
+   this.currentWave.deleteWave()
+   this.spawnWave()
+  }
+  def levelCompleted: Boolean = {
+    this.numberOfWave == this.totalWave && this.currentWave.isCompleted
+  }
 }

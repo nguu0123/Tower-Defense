@@ -2,6 +2,7 @@ package Utils
 
 
 class Health(var currentHealth: Int, val maxHealth: Int) {
+
   def update(damage: Int) = {
     this.currentHealth -= damage
   }

@@ -14,16 +14,20 @@ var backToMenu = false
 var gameLose = false
 var gameWon = false
 val grid = new Grid(1200, 720)
+/** gameGroup for storing game components (tower, enemy, projectile) */
 val gameGroup = new Group()
+/** root will be a borderpane to easily putting the game in the middle and the in game menu on the right */
 val root = new BorderPane()
+/** canvas is used to draw the map */
 val canvas = new Canvas(1200, 720)
-val VBox = new VBox {
+/** in game menu will be a VBOx as every components in this menu will be put in vertical comlumn */
+val ingameMenu = new VBox {
   spacing = 30
   padding = Insets(40, 0, 40,0)
 }
-VBox.setPrefWidth(300)
-VBox.setPrefHeight(720)
-VBox.setBackground(new Background(Array(new BackgroundFill(Color.Black, CornerRadii.Empty, Insets.Empty) ) ) )
+ingameMenu.setPrefWidth(300)
+ingameMenu.setPrefHeight(720)
+ingameMenu.setBackground(new Background(Array(new BackgroundFill(Color.Black, CornerRadii.Empty, Insets.Empty) ) ) )
 val shop0 = FileManager.createImageView("file:src/res/Shop1.png")
 val shop1 = FileManager.createImageView("file:src/res/Shop2.png")
 val shop2 = FileManager.createImageView("file:src/res/Shop3.png")
@@ -40,14 +44,14 @@ this.player.setGroup(gameGroup)
 this.player.setWaveManager(this.waveManager)
 this.waveManager.setPlayer(this.player)
 val font = Font.loadFont("file:src/res/font.ttf", 40)
-val waveSystem = new WaveSystem(this.waveManager, font, VBox)
+val waveSystem = new WaveSystem(this.waveManager, font, ingameMenu)
 val pauseAndContinueButtons = new HBox {
   spacing = 20
 }
 val pauseButton = FileManager.createImageView("file:src/res/pauseButton.png")
 val continueButton = FileManager.createImageView("file:src/res/continueButton.png")
 val saveButton = FileManager.createImageView("file:src/res/saveButton.png")
- pauseButton.onMouseClicked = event => {
+pauseButton.onMouseClicked = event => {
         this.player.stopGame = 1
     }
 continueButton.onMouseClicked = event => {
@@ -58,21 +62,18 @@ saveButton.onMouseClicked = event => {
    this.backToMenu = true
 }
 pauseAndContinueButtons.getChildren.addAll(saveButton, continueButton, pauseButton)
-VBox.getChildren.add(pauseAndContinueButtons)
-val goldSystem = new GoldSystem(this.player, VBox, font)
-val playerHealth = new PlayerHealth(this.player, VBox)
-val towerImages = new HBox {
+ingameMenu.getChildren.add(pauseAndContinueButtons)
+val goldSystem = new GoldSystem(this.player, ingameMenu, font)
+val playerHealth = new PlayerHealth(this.player, ingameMenu)
+val shopImages = new HBox {
    padding = Insets(0, 20, 0, 20)
    spacing = 30
 }
-towerImages.getChildren.addAll(shop0, shop1, shop2)
+shopImages.getChildren.addAll(shop0, shop1, shop2)
 val shopImage = Vector(shop0, shop1, shop2)
-VBox.getChildren.add(towerImages)
+ingameMenu.getChildren.add(shopImages)
 root.setCenter(gameGroup)
-root.setRight(VBox)
-var nextSecond = System.currentTimeMillis() + 1000
-var frameLastSecond = 0
-var frameCurrentSecond = 0
+root.setRight(ingameMenu)
 val inputManager = new InputManager(this.player)
 val castle = FileManager.createImageView("file:src/res/Castle.png")
 castle.relocate(1020,120)
@@ -83,6 +84,7 @@ for(i <- 0 to 2) {
   }
 }
 this.waveManager.spawnWave()
+
   def restart() = {
     this.player.restart()
     this.waveManager.restart()
@@ -107,15 +109,6 @@ this.waveManager.spawnWave()
           this.gameLose = true
           playerHealth.update()
         }
-
-
-       val currentSecond = System.currentTimeMillis()
-       if(currentSecond > nextSecond) {
-         nextSecond += 1000
-         frameLastSecond = frameCurrentSecond
-         frameCurrentSecond = 0
-       }
-       frameCurrentSecond += 1
   }
   def drawNewMap(mapNumer: Int) = {
      this.player.currentMapPlaying = mapNumer

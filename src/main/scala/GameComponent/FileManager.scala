@@ -3,50 +3,13 @@ package GameComponent
 import GUI.Game
 import Utils.{Gold, Health, Pos}
 import scala.collection.mutable.Buffer
-import scala.util.Try
-import java.io.FileReader
-import scala.util.Failure
 import java.io.FileNotFoundException
-import scala.util.Success
-import java.io.BufferedReader
 import io.circe.generic.auto._
-import io.circe.syntax._
 import io.circe.parser.decode
-import javafx.util.Pair
 import scalafx.scene.image.{Image, ImageView}
 import java.io._
 import scala.io.Source
 object FileManager {
-
-  val jsonString =
-    """
-   [
-   {
-      "map": [
-      [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
-      [0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0],
-      [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0]
-      ]
-      }
-   ]
-  """
 
   case class gridMap(map: Array[Array[Int]])
 
@@ -59,9 +22,6 @@ object FileManager {
   def readPlayer(text: String) = decode[playerAndTowerLoc](text).toTry
 
   def readText(source: scala.io.Source) = source.getLines().mkString("\n")
-
-  val fileSource = Try(scala.io.Source.fromFile("foo.bar"))
-  val stringSource = Try(scala.io.Source.fromString(jsonString))
 
   def loadMap(grid: Grid, mapNumber: Int) = {
     val source = Source.fromFile("src/data/map" + mapNumber + ".json")

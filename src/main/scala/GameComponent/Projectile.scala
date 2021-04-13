@@ -3,12 +3,13 @@ package GameComponent
 import Utils.{Direction, Pos, Velocity}
 import scalafx.scene.Group
 class Projectile(var pos: Pos, val speed: Double, val radious: Double, val target: Enemies, val damage: Int, filePath: String) {
-   var velocity = Velocity( Direction.Up, this.speed)
-   val radiousSq = radious * radious
-   var stopUpdate = false
-   var haveFired = false
-   val projectileImage = FileManager.createImageView(filePath)
-   val rotate = !(filePath == "file:src/res/Rock.png")
+  var velocity = Velocity( Direction.Up, this.speed)
+  val radiousSq = radious * radious
+  var stopUpdate = false
+  var haveFired = false
+  val projectileImage = FileManager.createImageView(filePath)
+  val rotate = !(filePath == "file:src/res/Rock.png")
+
   def draw(group: Group) = {
     if(!haveFired) {
       group.getChildren.add(this.projectileImage)
@@ -20,7 +21,7 @@ class Projectile(var pos: Pos, val speed: Double, val radious: Double, val targe
     group.getChildren.remove(this.projectileImage)
   }
   def hitTarget: Boolean = this.pos.distance(target.center) < this.radiousSq + 2
-   def update(group: Group) = {
+  def update(group: Group) = {
       if(target.stopUpdate || target.reachGoal ) this.remove(group)
       else {
          val direction = target.center - this.pos

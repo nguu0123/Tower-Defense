@@ -1,8 +1,8 @@
 package GameComponent
 
-import Utils.{Gold, Pos}
+import Utils.Pos
 import scalafx.scene.Group
-class Wave( group: Group,  numberOfEnemies: Int,  grid: Grid, spawnRate: Int, player: Player, spawnLoc: Pos) {
+class Wave( group: Group, numberOfEnemies: Int, grid: Grid, spawnRate: Int, player: Player, spawnLoc: Pos) {
  private val ran = scala.util.Random
  private var enemies = List[Enemies]()
  private var lastUpdate = System.currentTimeMillis()
@@ -11,6 +11,7 @@ class Wave( group: Group,  numberOfEnemies: Int,  grid: Grid, spawnRate: Int, pl
  private var nextSpawn = System.currentTimeMillis()
  private var havePaused = false
  private var damageDealt = 0
+
  def getDamageDealt = this.damageDealt
  def getEnemies = this.enemies
  def isCompleted = this.numberOfEnemies == this.enemiesSpawned && this.enemies.forall( enemy => enemy.stopUpdate || enemy.reachGoal)

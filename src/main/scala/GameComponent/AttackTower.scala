@@ -5,7 +5,7 @@ import scalafx.scene.Group
 class AttackTower(towerNumber: Int,goldNeeded: Gold, pos: Pos, val damage: Int, val shootRange: Double, val shootRate: Int, group: Group, waveManager: WaveManager, player: Player, towerFile: String, projectileFile: String) extends Tower(towerNumber,goldNeeded, pos, group, waveManager, player, towerFile) {
   private var currentWave: Wave = null
   private var currentEnemy: Enemies = null
-  /** using List as each tower usually shoot 1 or 2 shoot until the first shoot hit => concat and deconstruct small and foreeach little */
+  /** using List as each tower usually shoot 1 or 2 shoot until the first shoot hit => List has performance that concat and deconstruct small and foreeach little */
   private var projectiles = List[Projectile]()
 
   def setWave(wave: Wave) = {
@@ -14,7 +14,7 @@ class AttackTower(towerNumber: Int,goldNeeded: Gold, pos: Pos, val damage: Int, 
   def setEnemy() = {
   if(this.currentWave != null)  {
       if (this.currentWave.getEnemies.nonEmpty) this.currentEnemy = {
-       val ans = this.currentWave.getEnemies.find(x => x.center.distance(this.pos) <= this.shootRange && x.isAlive && !x.reachGoal)
+       val ans = this.currentWave.getEnemies.find(x => ( (x.center.distance(this.pos) <= this.shootRange) && (x.isAlive && !x.reachGoal) ) )
         if(ans.nonEmpty) ans.get
         else null
       }
@@ -26,7 +26,9 @@ class AttackTower(towerNumber: Int,goldNeeded: Gold, pos: Pos, val damage: Int, 
   def destroy() = {
     this.isDestroyed = true
     group.getChildren.remove(this.towerImage)
-     for(projectile <- this.projectiles)   projectile.remove(this.group)
+    for(projectile <- this.projectiles) {
+      projectile.remove(this.group)
+    }
 
     group.getChildren.remove(this.button)
   }
@@ -39,10 +41,10 @@ class AttackTower(towerNumber: Int,goldNeeded: Gold, pos: Pos, val damage: Int, 
        this.shoot()
        this.havePassed = 0
      }
-     this.projectiles = this.projectiles.filter(projectile => !projectile.stopUpdate)
-     for(projectile <- this.projectiles) {
-         projectile.update(this.group)
-     }
+    this.projectiles = this.projectiles.filter(projectile => !projectile.stopUpdate)
+    for(projectile <- this.projectiles) {
+        projectile.update(this.group)
+    }
   }
 }
 object AttackTower {

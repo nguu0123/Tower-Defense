@@ -36,6 +36,8 @@ abstract class Tower(val towerNumer: Int,  val goldNeeded: Gold, val pos: Pos, v
   
     def destroy(): Unit
     def update(): Unit
+    /** The towers has update time method because when the game is paused, the timeline is still updated but the time related variable of towers is not.
+     *  That can result in continous shooting if the player paused exactly when the tower just shoot */
     def updateTime() = {
       if(!this.havePaused) {
         this.havePassed += System.currentTimeMillis() - this.lastUpdate

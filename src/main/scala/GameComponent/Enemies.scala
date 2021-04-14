@@ -14,10 +14,11 @@ class Enemies(var pos:Pos, var velocity: Velocity, val health: Health, val grid:
   var canDamage = true
   var canGiveGold = true
   var currentSquare = grid.elementAt(this.pos)
-  var index = 0
-  var time = 0
-  var state = 1
+  private var index = 0
+  private var time = 0
+  private var state = 1
   var stopUpdate = false
+
   def center = this.pos + Pos(20.0, 20.0)
   def reachGoal: Boolean = this.pos.inRange(1100, 720)
   def isAlive: Boolean = !this.health.isDead
@@ -41,12 +42,13 @@ class Enemies(var pos:Pos, var velocity: Velocity, val health: Health, val grid:
     if(state == 0 && index == 19)   stopUpdate = true
 
   }
+  /** monster can only go in the path with the same texture so monster will find the next square with the same texture to go at that direction */
   def nextDirection: Direction = {
-     val up   = grid.getTexture(this.pos + Pos(0.0, -60.0))
-     val down = grid.getTexture(this.pos + Pos(0.0, 60.0))
-     val left = grid.getTexture(this.pos + Pos(-60.0, 0.0))
-     val right = grid.getTexture(this.pos + Pos(60.0, 0.0))
-     val currentSquareTexture = grid.getTexture(this.pos)
+    val up   = grid.getTexture(this.pos + Pos(0.0, -60.0))
+    val down = grid.getTexture(this.pos + Pos(0.0, 60.0))
+    val left = grid.getTexture(this.pos + Pos(-60.0, 0.0))
+    val right = grid.getTexture(this.pos + Pos(60.0, 0.0))
+    val currentSquareTexture = grid.getTexture(this.pos)
     if(this.velocity.movingUp && this.pos.y != this.currentSquare.pos.y) Direction.Up
     else
     {
@@ -56,10 +58,12 @@ class Enemies(var pos:Pos, var velocity: Velocity, val health: Health, val grid:
       else Direction.Left
     }
   }
+  /** every update, the monster will have a new image so I will remove the old, update logic (health, pos), and then add the new image.
+   *  The health bar is relocated */
   def update(group: Group): Unit = {
     this.remove(group)
     this.velocity = this.velocity.changeDirection(this.nextDirection)
-     this.currentSquare = grid.elementAt(this.pos)
+    this.currentSquare = grid.elementAt(this.pos)
     this.pos = this.pos.nextPos(this.velocity)
     if(!this.isAlive && state == 1) {
       state = 0
@@ -74,6 +78,7 @@ class Enemies(var pos:Pos, var velocity: Velocity, val health: Health, val grid:
 }
 object Enemies {
  def apply(pos: Pos, velocity: Velocity, health: Health, grid: Grid, gold: Gold, filePath: String) = new Enemies(pos, velocity, health, grid, gold, filePath)
- def createGreenMonster(pos: Pos, grid: Grid) = new Enemies(pos, Velocity(Direction.Down, 1.5), Health(80, 80), grid, Gold(10), "file:src/res/greenMonster/")
+ def createGreenMonster(pos: Pos, grid: Grid)     = new Enemies(pos, Velocity(Direction.Down, 1.5), Health(80, 80), grid, Gold(10), "file:src/res/greenMonster/")
  def createBrainlessMonster(pos: Pos, grid: Grid) = new Enemies(pos, Velocity(Direction.Down, 1.5), Health(130, 130), grid, Gold(15), "file:src/res/brainlessMonster/")
+ def createBlackMonster(pos: Pos, grid: Grid)     = new Enemies(pos, Velocity(Direction.Down, 1.5), Health(250, 250), grid, Gold(50), "file:src/res/blackMonster/")
 }

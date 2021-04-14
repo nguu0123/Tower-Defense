@@ -5,6 +5,8 @@ import scalafx.scene.Group
 class Player(var gold: Gold, var health: Health) {
    var stopGame = 0
    var currentMapPlaying = 1
+   /** Array is used as I think there will be more tower was built than tower was destroyed.
+    *  Array is great choice when I need to concat and foreach a lot */
    private var towers = Array[Tower]()
    private var grid: Grid = null
    private var group: Group = null

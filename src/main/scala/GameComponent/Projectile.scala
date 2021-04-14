@@ -3,7 +3,7 @@ package GameComponent
 import Utils.{Direction, Pos, Velocity}
 import scalafx.scene.Group
 class Projectile(var pos: Pos, val speed: Double, val radious: Double, val target: Enemies, val damage: Int, filePath: String) {
-  var velocity = Velocity( Direction.Up, this.speed)
+  var velocity = Velocity(Direction.Up, this.speed)
   val radiousSq = radious * radious
   var stopUpdate = false
   var haveFired = false
@@ -15,12 +15,14 @@ class Projectile(var pos: Pos, val speed: Double, val radious: Double, val targe
       group.getChildren.add(this.projectileImage)
       haveFired = true
     }
-    else this.projectileImage.relocate(this.pos.x, this.pos.y)
+    else {
+      this.projectileImage.relocate(this.pos.x, this.pos.y)
+    }
   }
   def remove(group: Group) = {
     group.getChildren.remove(this.projectileImage)
   }
-  def hitTarget: Boolean = this.pos.distance(target.center) < this.radiousSq + 2
+  def hitTarget: Boolean = this.pos.distance(target.center) < (this.radiousSq + 2)
   def update(group: Group) = {
       if(target.stopUpdate || target.reachGoal ) this.remove(group)
       else {

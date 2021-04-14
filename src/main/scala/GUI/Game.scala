@@ -78,13 +78,10 @@ val inputManager = new InputManager(this.player)
 val castle = FileManager.createImageView("file:src/res/Castle.png")
 castle.relocate(1020,120)
 gameGroup.getChildren.add(castle)
-for(i <- 0 to 2) {
-  for(j <- 0 to 2) {
-    grid.setNotBuildable( Pos(1020,120) + Pos(i * 60, j* 60))
-  }
-}
 this.waveManager.spawnWave()
-
+var nextSecond = System.currentTimeMillis() + 1000
+var frameLastSecond = 0
+var frameCurrentSecond = 0
   def restart() = {
     this.player.restart()
     this.waveManager.restart()
@@ -109,16 +106,29 @@ this.waveManager.spawnWave()
           this.gameLose = true
           playerHealth.update()
         }
+    val currentSecond = System.currentTimeMillis()
+       if(currentSecond > nextSecond) {
+         nextSecond += 1000
+         frameLastSecond = frameCurrentSecond
+         frameCurrentSecond = 0
+       }
+       frameCurrentSecond += 1
+       println(frameLastSecond)
   }
   def drawNewMap(mapNumer: Int) = {
-     this.player.currentMapPlaying = mapNumer
+    this.player.currentMapPlaying = mapNumer
        mapNumer match {
         case 1 => this.waveManager.setSpawnLoc(Pos(0, 300))
         case 2 => this.waveManager.setSpawnLoc(Pos(0, 540))
         case 3 => this.waveManager.setSpawnLoc(Pos(0, 120))
       }
     FileManager.loadMap(grid, this.player.currentMapPlaying)
-     grid.draw(g)
+    for(i <- 0 to 2) {
+       for(j <- 0 to 2) {
+          this.grid.setNotBuildable( Pos(1020,120) + Pos(i * 60, j* 60))
+    }
+}
+    grid.draw(g)
   }
   def newGame() = {
     waveSystem.setWaveManager(this.waveManager)

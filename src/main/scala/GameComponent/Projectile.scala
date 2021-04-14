@@ -24,24 +24,24 @@ class Projectile(var pos: Pos, val speed: Double, val radious: Double, val targe
   }
   def hitTarget: Boolean = this.pos.distance(target.center) < (this.radiousSq + 2)
   def update(group: Group) = {
-      if(target.stopUpdate || target.reachGoal ) this.remove(group)
-      else {
-         val direction = target.center - this.pos
-         val newDirection = Direction.fromDeltas(direction.x, direction.y)
-         this.velocity = this.velocity.changeDirection(newDirection)
-         if(rotate) this.projectileImage.rotate = -newDirection.toDegree + 30
-         this.pos = this.pos.nextPos(this.velocity)
-         this.projectileImage.relocate(this.pos.x, this.pos.y)
-         if(this.hitTarget) {
-            this.remove(group)
-            this.stopUpdate = true
-            target.health.update(this.damage)
-         }
-         else {
-           this.draw(group)
-         }
-      }
-   }
+    if(target.stopUpdate || target.reachGoal ) this.remove(group)
+    else {
+       val direction = target.center - this.pos
+       val newDirection = Direction.fromDeltas(direction.x, direction.y)
+       this.velocity = this.velocity.changeDirection(newDirection)
+       if(rotate) this.projectileImage.rotate = -newDirection.toDegree + 30
+       this.pos = this.pos.nextPos(this.velocity)
+       this.projectileImage.relocate(this.pos.x, this.pos.y)
+       if(this.hitTarget) {
+          this.remove(group)
+          this.stopUpdate = true
+          target.health.update(this.damage)
+       }
+       else {
+         this.draw(group)
+       }
+    }
+  }
 }
 object Projectile {
  def apply(pos: Pos, speed: Double, radious: Double, target: Enemies, damage: Int, filePath: String) = new Projectile(pos, speed, radious, target, damage, filePath)

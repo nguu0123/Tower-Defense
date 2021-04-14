@@ -22,7 +22,6 @@ class Enemies(var pos:Pos, var velocity: Velocity, val health: Health, val grid:
   def center = this.pos + Pos(20.0, 20.0)
   def reachGoal: Boolean = this.pos.inRange(1100, 720)
   def isAlive: Boolean = !this.health.isDead
-  def canBeShooted: Boolean = !this.stopUpdate || !this.reachGoal
   def removeHealthBar(group: Group) = {
     group.getChildren.removeAll(healthBackground, healtPercent, healthBorder)
   }
@@ -52,7 +51,7 @@ class Enemies(var pos:Pos, var velocity: Velocity, val health: Health, val grid:
     if(this.velocity.movingUp && this.pos.y != this.currentSquare.pos.y) Direction.Up
     else
     {
-      if (currentSquareTexture == right && !this.velocity.movingLeft) Direction.Right
+      if (currentSquareTexture == right && !this.velocity.movingLeft)   Direction.Right
       else if (currentSquareTexture == up && !this.velocity.movingDown) Direction.Up
       else if (currentSquareTexture == down && !this.velocity.movingUp) Direction.Down
       else Direction.Left
@@ -78,7 +77,7 @@ class Enemies(var pos:Pos, var velocity: Velocity, val health: Health, val grid:
 }
 object Enemies {
  def apply(pos: Pos, velocity: Velocity, health: Health, grid: Grid, gold: Gold, filePath: String) = new Enemies(pos, velocity, health, grid, gold, filePath)
- def createGreenMonster(pos: Pos, grid: Grid)     = new Enemies(pos, Velocity(Direction.Down, 1.5), Health(80, 80), grid, Gold(10), "file:src/res/greenMonster/")
- def createBrainlessMonster(pos: Pos, grid: Grid) = new Enemies(pos, Velocity(Direction.Down, 1.5), Health(130, 130), grid, Gold(15), "file:src/res/brainlessMonster/")
- def createBlackMonster(pos: Pos, grid: Grid)     = new Enemies(pos, Velocity(Direction.Down, 1.5), Health(250, 250), grid, Gold(50), "file:src/res/blackMonster/")
+ def createGreenMonster(pos: Pos, grid: Grid)     =  Enemies(pos, Velocity(Direction.Down, 1.5), Health(80, 80), grid, Gold(10), "file:src/res/greenMonster/")
+ def createBrainlessMonster(pos: Pos, grid: Grid) =  Enemies(pos, Velocity(Direction.Down, 1.5), Health(130, 130), grid, Gold(15), "file:src/res/brainlessMonster/")
+ def createBlackMonster(pos: Pos, grid: Grid)     =  Enemies(pos, Velocity(Direction.Down, 1.5), Health(250, 250), grid, Gold(50), "file:src/res/blackMonster/")
 }

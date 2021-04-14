@@ -2,7 +2,7 @@ package GameComponent
 
 import Utils.Pos
 import scalafx.scene.Group
-class Wave( group: Group, numberOfEnemies: Int, grid: Grid, spawnRate: Int, player: Player, spawnLoc: Pos) {
+class Wave(group: Group, numberOfEnemies: Int, grid: Grid, val spawnRate: Int, player: Player, spawnLoc: Pos) {
  private val ran = scala.util.Random
  private var enemies = List[Enemies]()
  /** I used havePassed and lastUpdate to compute how much time is actually passed in my game */
@@ -10,7 +10,6 @@ class Wave( group: Group, numberOfEnemies: Int, grid: Grid, spawnRate: Int, play
  private var havePassed = 0f
  private var enemiesSpawned = 0
  private var nextSpawn = System.currentTimeMillis()
- private var havePaused = false
  /** damageDealt is used to compute the health of the player before this wave if the game is saved in this wave */
  private var damageDealt = 0
 
@@ -33,9 +32,8 @@ class Wave( group: Group, numberOfEnemies: Int, grid: Grid, spawnRate: Int, play
   this.lastUpdate = System.currentTimeMillis()
   this.addEnemy(newEnemy)
  }
- def update(): Unit = {
-  for(enemy <- this.enemies) {
-      if(!enemy.stopUpdate && !enemy.reachGoal) enemy.update(group)
+ private def update(enemy: Enemies) = {
+   if(!enemy.stopUpdate && !enemy.reachGoal) enemy.update(group)
       if(enemy.stopUpdate || enemy.reachGoal) {
         enemy.remove(group)
         enemy.removeHealthBar(group)
@@ -49,10 +47,12 @@ class Wave( group: Group, numberOfEnemies: Int, grid: Grid, spawnRate: Int, play
           enemy.canDamage = false
         }
       }
-  }
+ }
+ def update(): Unit = {
+  this.enemies.foreach(enemy => this.update(enemy))
   this.havePassed += System.currentTimeMillis() - this.lastUpdate
   this.lastUpdate = System.currentTimeMillis()
-  if(this.havePassed > spawnRate && enemiesSpawned < numberOfEnemies) {
+  if(this.havePassed > this.spawnRate && enemiesSpawned < numberOfEnemies) {
      this.spawn()
      enemiesSpawned += 1
     }
@@ -61,17 +61,14 @@ class Wave( group: Group, numberOfEnemies: Int, grid: Grid, spawnRate: Int, play
     }
  }
  def updateTime() = {
-  if(havePaused) {
-    this.havePassed += System.currentTimeMillis() - this.lastUpdate
-    this.havePaused = true
-  }
   this.lastUpdate = System.currentTimeMillis()
  }
  def deleteWave() = {
-   for(enemy <- this.enemies) {
-       enemy.remove(group)
-       enemy.removeHealthBar(group)
-    }
+   this.enemies.foreach(enemy => {
+     enemy.remove(group)
+     enemy.removeHealthBar(group)
+   }
+   )
  }
 }
 

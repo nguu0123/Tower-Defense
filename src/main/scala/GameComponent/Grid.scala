@@ -44,13 +44,13 @@ class Grid(val width: Int, val height: Int){
     }
 
   }
-      def draw(gc: GraphicsContext) = {
-        val components = this.contents.flatten
-        for(square <- components) gc.drawImage(square.image, square.pos.x, square.pos.y, square.width, square.height)
-        gc
-    }
+  def draw(gc: GraphicsContext) = {
+    val components = this.contents.flatten
+    for(square <- components) gc.drawImage(square.image, square.pos.x, square.pos.y, square.width, square.height)
+    gc
+  }
   def canBuildAt(pos: Pos): Boolean = {
-   if(this.contains(pos))   this.elementAt(pos).buildable
+   if(this.contains(pos))  this.elementAt(pos).buildable
    else false
   }
   def setNotBuildable(pos: Pos) = {

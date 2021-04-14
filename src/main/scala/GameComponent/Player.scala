@@ -22,9 +22,7 @@ class Player(var gold: Gold, var health: Health) {
    this.waveManager = waveManager
   }
   def setTowers(towers: Array[Tower]) = {
-    for(tower <- this.towers) {
-      tower.destroy()
-    }
+   this.towers.foreach(tower => tower.destroy())
    this.towers = towers
   }
    def getTower = this.towers
@@ -58,8 +56,8 @@ class Player(var gold: Gold, var health: Health) {
     }
     else if(towerChosen == 2 && this.gold.canBuild(Gold(50))){
       val buildPos = pos.approximate
-       this.addTower((GoldTower.createTower(buildPos, group, this.waveManager, this)) )
-       this.gold = this.gold - Gold(50)
+      this.addTower((GoldTower.createTower(buildPos, group, this.waveManager, this)) )
+      this.gold = this.gold - Gold(50)
     }
   }
   def deleteTower(tower: Tower) = {
@@ -73,19 +71,13 @@ class Player(var gold: Gold, var health: Health) {
      this.towers = this.towers.filter(tower => !tower.isDestroyed)
   }
   def update() = {
-   for(tower <- this.towers) {
-      tower.update()
-   }
+    this.towers.foreach(tower => tower.update())
   }
   def updateTime() = {
-    for(tower <- this.towers) {
-       tower.updateTime()
-    }
+    this.towers.foreach(tower => tower.updateTime())
   }
   def restart() = {
-   for(tower <- this.towers) {
-      this.deleteTower(tower)
-    }
+    this.towers.foreach(tower => this.deleteTower(tower))
     this.gold = Gold(400)
     this.health = Health(20, 20)
   }

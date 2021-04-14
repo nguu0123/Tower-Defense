@@ -63,13 +63,14 @@ class InputManager(var player: Player) {
        shop(towerChosen).setEffect(colorChange)
        shop(towerChosen).setOpacity(0.6)
        shop(towerChosen).relocate(pos._1, pos._2)
-       if(pos._1 <= 1080 && pos._1 >= 0 && pos._2 >= 0 && pos._2 <= 620) group.getChildren.add(shop(towerChosen))
+       if(pos._1 <= 1060 && pos._1 >= 0 && pos._2 >= 0 && pos._2 <= 620) group.getChildren.add(shop(towerChosen))
       }
     }
     else {
        group.onMouseMoved = null
        group.onMouseClicked = null
        towers(towerChosen).effect = null
+       group.getChildren.remove(shop(towerChosen))
     }
   }
 

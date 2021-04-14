@@ -130,11 +130,11 @@ object FileManager {
     game.waveManager.setPlayer(player)
     game.player = player
     game.drawNewMap(playerData.mapNumber)
-    game.waveManager.spawnWave()
     var index = 0
     for (towerLoc <- playerData.towerLocs) {
       player.addTowerAt(playerData.towerCode(index), towerLoc)
       index += 1
     }
+    game.waveManager.spawnWave()
   }
 }

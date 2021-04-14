@@ -26,10 +26,7 @@ class AttackTower(towerNumber: Int,goldNeeded: Gold, pos: Pos, val damage: Int, 
   def destroy() = {
     this.isDestroyed = true
     group.getChildren.remove(this.towerImage)
-    for(projectile <- this.projectiles) {
-      projectile.remove(this.group)
-    }
-
+    this.projectiles.foreach(projectile => projectile.remove(this.group))
     group.getChildren.remove(this.button)
   }
   def update() = {
@@ -42,13 +39,11 @@ class AttackTower(towerNumber: Int,goldNeeded: Gold, pos: Pos, val damage: Int, 
        this.havePassed = 0
      }
     this.projectiles = this.projectiles.filter(projectile => !projectile.stopUpdate)
-    for(projectile <- this.projectiles) {
-        projectile.update(this.group)
-    }
+    this.projectiles.foreach(projectile => projectile.update(this.group))
   }
 }
 object AttackTower {
  def apply(towerNumber:Int, goldNeeded: Gold ,pos: Pos, damage: Int, shootRange: Double, shootRate: Int, group: Group, waveManager: WaveManager, player: Player, towerFile: String, projectileFile: String) = new AttackTower(towerNumber, goldNeeded, pos, damage, shootRange, shootRate, group, waveManager, player, towerFile, projectileFile)
- def createFireTower(pos: Pos, group: Group, waveManager: WaveManager, player: Player) = new AttackTower(1, Gold(150) ,pos, 10, 200.0, 500, group, waveManager, player, "file:src/res/Tower1.png" , "file:src/res/Fireball1.png")
- def createRockTower(pos: Pos, group: Group, waveManager: WaveManager, player: Player) = new AttackTower(0, Gold(100),pos, 20, 200.0, 1000, group, waveManager, player, "file:src/res/Tower0.png", "file:src/res/Rock.png")
+ def createFireTower(pos: Pos, group: Group, waveManager: WaveManager, player: Player) =  AttackTower(1, Gold(150) ,pos, 10, 300.0, 500, group, waveManager, player, "file:src/res/Tower1.png" , "file:src/res/Fireball1.png")
+ def createRockTower(pos: Pos, group: Group, waveManager: WaveManager, player: Player) =  AttackTower(0, Gold(100),pos, 20, 200.0, 1000, group, waveManager, player, "file:src/res/Tower0.png", "file:src/res/Rock.png")
 }

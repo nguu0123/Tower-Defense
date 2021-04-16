@@ -2,13 +2,17 @@ package GameComponent
 
 import GUI.Game
 import Utils.{Gold, Health, Pos}
+
 import scala.collection.mutable.Buffer
 import java.io.FileNotFoundException
 import io.circe.generic.auto._
 import io.circe.parser.decode
 import scalafx.scene.image.{Image, ImageView}
+
 import java.io._
 import scala.io.Source
+import scalafx.scene.control.Alert
+import scalafx.scene.control.Alert.AlertType
 object FileManager {
 
   case class gridMap(map: Array[Array[Int]])
@@ -137,4 +141,9 @@ object FileManager {
     }
     game.waveManager.spawnWave()
   }
+  def showError(message: String, exception: Throwable) = new Alert(AlertType.Error) {
+        title = "Error loading file"
+        headerText = message
+        contentText = "Operation threw exception: " + exception.toString
+    }.showAndWait()
 }

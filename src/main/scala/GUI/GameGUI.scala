@@ -15,14 +15,33 @@ class GameGui(game: Game) extends Scene {
   val mainMenu = new MainMenu
   mainMenu.playButton.onAction  = (event) => this.toMapChoosing()
   mainMenu.guideButton.onAction = (event) => this.toGuide()
-  mainMenu.loadButton.onAction  = (event) => this.loadGame()
+  mainMenu.loadButton.onAction  = (event) => try{
+    this.loadGame()
+  } catch {
+    case e: Throwable => FileManager.showError("Load game failed", e)
+  }
   
   val mapChoosingMenu = new MapChoosingMenu
-  mapChoosingMenu.map1.onAction = (event) => this.toGame(1)
-  mapChoosingMenu.map2.onAction = (event) => this.toGame(2)
-  mapChoosingMenu.map3.onAction = (event) => this.toGame(3)
+  mapChoosingMenu.map1.onAction = (event) => try{
+    this.toGame(1)
+  }
+  catch {
+    case e: Throwable => FileManager.showError("Load map 1 failed", e)
+  }
+  mapChoosingMenu.map2.onAction = (event) => try{
+    this.toGame(2)
+  }
+  catch {
+    case e: Throwable => FileManager.showError("Load map 2 failed", e)
+  }
+  mapChoosingMenu.map3.onAction = (event) => try{
+    this.toGame(3)
+  }
+  catch {
+    case e: Throwable => FileManager.showError("Load map 3 failed", e)
+  }
 
-  def mainLoop: Unit = {
+  def mainLoop() = {
        if(game.backToMenu) {
          this.ticker.stop()
          this.toMenu()
@@ -46,7 +65,7 @@ class GameGui(game: Game) extends Scene {
 
        game.update()
     }
-   val ticker = new Ticker(mainLoop)
+   val ticker = new Ticker(mainLoop())
    this.root = mainMenu
 
    def toGame(mapNumber: Int) = {

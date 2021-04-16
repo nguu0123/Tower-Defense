@@ -6,7 +6,7 @@ import scalafx.scene.layout.VBox
 class PlayerHealth(var player: Player, VBox: VBox)  {
   val healthBar = new Group()
   val healthIcon = FileManager.createImageView("file:src/res/healthicon.png")
-  val healthBackground = FileManager.createImageView("file:src/res/healthbackground3.png")
+  val healthBackground = FileManager.createImageView("file:src/res/healthbackground.png")
   val healthPercentage = FileManager.createImageView("file:src/res/healthpercentage.png")
   healthBar.getChildren.add(healthIcon)
   healthBackground.relocate(92,2)

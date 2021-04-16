@@ -32,8 +32,6 @@ val shop0 = FileManager.createImageView("file:src/res/Shop1.png")
 val shop1 = FileManager.createImageView("file:src/res/Shop2.png")
 val shop2 = FileManager.createImageView("file:src/res/Shop3.png")
 val g = canvas.graphicsContext2D
-FileManager.loadMap(grid, 1)
-grid.draw(g)
 gameGroup.getChildren.add(canvas)
 var waveManager = new WaveManager(5, 5, 0)
 this.waveManager.setGrid(grid)

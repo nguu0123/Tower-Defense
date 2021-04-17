@@ -15,10 +15,6 @@ class Grid(val width: Int, val height: Int){
     }
     elems
   }
-  def info() = {
-       for(i <- this.contents)
-         for(j <- i) println(j)
-  }
   private def contains(x: Double, y: Double): Boolean = (x >= 0 && x < width && y >= 0 && y < height)
   def contains(pos: Pos): Boolean = this.contains(pos.x, pos.y)
   def elementAt(pos: Pos): Square = {

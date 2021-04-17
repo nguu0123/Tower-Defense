@@ -25,10 +25,10 @@ class WaveManager(val totalWave: Int, val minEnemiesPerWave: Int, val startWave:
   def setSpawnLoc(pos: Pos) = {
    this.spawnLoc = pos
   }
-  def getWave = this.currentWave
+  def getWave       = this.currentWave
   def getWaveNumber = this.numberOfWave
   def getPlayerGold = this.previousPlayerGold
-  def getTowers = this.previousTowers
+  def getTowers     = this.previousTowers
   def spawnWave() = {
    this.previousPlayerGold = this.player.gold
    this.previousTowers = this.player.getTower

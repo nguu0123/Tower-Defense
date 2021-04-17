@@ -38,10 +38,16 @@ class Player(var gold: Gold, var health: Health) {
    def canBuild(pos: Pos): Boolean = {
      grid.canBuildAt(pos) && grid.canBuildAt(pos - Pos(60, 0)) && grid.canBuildAt(pos - Pos(0, 60)) && grid.canBuildAt(pos - Pos(60, 60))
    }
-  def addTowerAt(towerCode: Int,pos: Pos) = {
-     if     (towerCode == 1) this.addTower(AttackTower.createFireTower(pos, group, this.waveManager, this))
-     else if(towerCode == 0) this.addTower(AttackTower.createRockTower(pos, group, this.waveManager, this))
-     else if(towerCode == 2) this.addTower(GoldTower.createTower(pos, group, this.waveManager, this))
+  def addTowerAt(towerCode: Int, pos: Pos) = {
+     if     (towerCode == 1) {
+       this.addTower(AttackTower.createFireTower(pos, group, this.waveManager, this))
+     }
+     else if(towerCode == 0) {
+       this.addTower(AttackTower.createRockTower(pos, group, this.waveManager, this))
+     }
+     else if(towerCode == 2) {
+       this.addTower(GoldTower.createTower(pos, group, this.waveManager, this))
+     }
   }
   def buildTower(towerChosen:Int, pos: Pos) = {
     if(towerChosen == 1 && this.gold.canBuild(Gold(150))) {

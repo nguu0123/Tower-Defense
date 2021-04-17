@@ -26,20 +26,20 @@ class Projectile(var pos: Pos, val speed: Double, val radious: Double, val targe
   def update(group: Group) = {
     if(target.stopUpdate || target.reachGoal ) this.remove(group)
     else {
-       val direction = target.center - this.pos
-       val newDirection = Direction.fromDeltas(direction.x, direction.y)
-       this.velocity = this.velocity.changeDirection(newDirection)
-       if(rotate) this.projectileImage.rotate = -newDirection.toDegree + 30
-       this.pos = this.pos.nextPos(this.velocity)
-       this.projectileImage.relocate(this.pos.x, this.pos.y)
-       if(this.hitTarget) {
-          this.remove(group)
-          this.stopUpdate = true
-          target.health.update(this.damage)
-       }
-       else {
-         this.draw(group)
-       }
+      val direction = target.center - this.pos
+      val newDirection = Direction.fromDeltas(direction.x, direction.y)
+      this.velocity = this.velocity.changeDirection(newDirection)
+      if(rotate) this.projectileImage.rotate = -newDirection.toDegree + 30
+      this.pos = this.pos.nextPos(this.velocity)
+      this.projectileImage.relocate(this.pos.x, this.pos.y)
+      if(this.hitTarget) {
+         this.remove(group)
+         this.stopUpdate = true
+         target.health.update(this.damage)
+      }
+      else {
+        this.draw(group)
+      }
     }
   }
 }

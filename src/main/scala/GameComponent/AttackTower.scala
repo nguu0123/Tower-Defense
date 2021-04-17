@@ -44,6 +44,6 @@ class AttackTower(towerNumber: Int,goldNeeded: Gold, pos: Pos, val damage: Int, 
 }
 object AttackTower {
  def apply(towerNumber:Int, goldNeeded: Gold ,pos: Pos, damage: Int, shootRange: Double, shootRate: Int, group: Group, waveManager: WaveManager, player: Player, towerFile: String, projectileFile: String) = new AttackTower(towerNumber, goldNeeded, pos, damage, shootRange, shootRate, group, waveManager, player, towerFile, projectileFile)
- def createFireTower(pos: Pos, group: Group, waveManager: WaveManager, player: Player) =  AttackTower(1, Gold(150) ,pos, 10, 300.0, 500, group, waveManager, player, "file:src/res/Tower1.png" , "file:src/res/Fireball1.png")
- def createRockTower(pos: Pos, group: Group, waveManager: WaveManager, player: Player) =  AttackTower(0, Gold(100),pos, 20, 200.0, 1000, group, waveManager, player, "file:src/res/Tower0.png", "file:src/res/Rock.png")
+ def createFireTower(pos: Pos, group: Group, waveManager: WaveManager, player: Player) =  AttackTower(1, Gold(150), pos, 10, 300.0, 500 , group, waveManager, player, "file:src/res/Tower1.png", "file:src/res/Fireball1.png")
+ def createRockTower(pos: Pos, group: Group, waveManager: WaveManager, player: Player) =  AttackTower(0, Gold(100), pos, 20, 200.0, 1000, group, waveManager, player, "file:src/res/Tower0.png", "file:src/res/Rock.png")
 }

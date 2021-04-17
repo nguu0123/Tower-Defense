@@ -41,47 +41,47 @@ class GameGui(game: Game) extends Scene {
     case e: Throwable => FileManager.showError("Load map 3 failed", e)
   }
 
-  def mainLoop() = {
-       if(game.backToMenu) {
-         this.ticker.stop()
-         this.toMenu()
-       }
-       else if(game.gameLose) {
-        this.ticker.stop()
-        game.gameGroup.getChildren.add(this.gameOver)
-        game.root.onMouseClicked = event => {
-         game.gameLose = false
-         this.toMenu()
-        }
-       }
-       else if(game.gameWon) {
-         this.ticker.stop()
-         game.gameGroup.getChildren.add(this.gameWon)
-        game.root.onMouseClicked = event => {
-         game.gameWon = false
-         this.toMenu()
-        }
-       }
+  def mainLoop(): Unit = {
+     if(game.backToMenu) {
+       this.ticker.stop()
+       this.toMenu()
+     }
+     else if(game.gameLose) {
+      this.ticker.stop()
+      game.gameGroup.getChildren.add(this.gameOver)
+      game.root.onMouseClicked = event => {
+       game.gameLose = false
+       this.toMenu()
+      }
+     }
+     else if(game.gameWon) {
+       this.ticker.stop()
+       game.gameGroup.getChildren.add(this.gameWon)
+      game.root.onMouseClicked = event => {
+       game.gameWon = false
+       this.toMenu()
+      }
+     }
 
-       game.update()
-    }
+     game.update()
+   }
    val ticker = new Ticker(mainLoop())
    this.root = mainMenu
 
    def toGame(mapNumber: Int) = {
-       this.game.drawNewMap(mapNumber)
-       this.game.player.stopGame = 0
-       this.game.restart()
-       this.root = game.root
-       game.backToMenu = false
-       ticker.start()
+     this.game.drawNewMap(mapNumber)
+     this.game.player.stopGame = 0
+     this.game.restart()
+     this.root = game.root
+     game.backToMenu = false
+     ticker.start()
    }
    def toMenu() = {
-       game.gameGroup.getChildren.remove(this.gameOver)
-       game.gameGroup.getChildren.remove(this.gameWon)
-       game.root.onMouseClicked = null
-       this.game.restart()
-       this.root = mainMenu
+     game.gameGroup.getChildren.remove(this.gameOver)
+     game.gameGroup.getChildren.remove(this.gameWon)
+     game.root.onMouseClicked = null
+     this.game.restart()
+     this.root = mainMenu
    }
   def toMapChoosing() = {
     this.root = mapChoosingMenu

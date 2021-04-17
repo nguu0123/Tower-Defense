@@ -55,6 +55,7 @@ object FileManager {
   }
 
   def savePlayer(player: Player): String = {
+    /** First, I save player's health and gold */
     var ans =
       s"""
    {
@@ -63,6 +64,7 @@ object FileManager {
       "maxHealth": ${player.health.maxHealth},
       "towerLocs": [
   """
+    /** Saving tower locations */
     for (tower <- player.getTower) {
       ans +=
         s"""
@@ -72,14 +74,18 @@ object FileManager {
         },
        """
     }
+    /** drop the excess ',' and add ']' at the end*/
     if (player.getTower.nonEmpty) ans = ans.dropRight(10)
     ans = ans + "]," + "\n"
+    /** Saving tower types */
     ans += """ "towerCode": [""" + "\n"
     for (tower <- player.getTower) {
       ans += s"""  ${tower.towerNumer},"""
     }
+    /** Drop excess part */
     if (player.getTower.nonEmpty) ans = ans.dropRight(1)
     ans = ans + "]" + "\n"
+    /** Save the map number */
     ans +=
       s""",
        "mapNumber" : ${player.currentMapPlaying}
@@ -90,6 +96,7 @@ object FileManager {
   def saveGame(filePath: String, game: Game) = {
     val fileContent = Buffer[String]()
     fileContent += this.saveWaveManager(game.waveManager)
+    /** Set player data to player data at the beginning of the current wave */
     game.player.gold = game.waveManager.getPlayerGold
     game.player.setTowers(game.waveManager.getTowers)
     game.player.health.currentHealth += game.waveManager.getWave.getDamageDealt

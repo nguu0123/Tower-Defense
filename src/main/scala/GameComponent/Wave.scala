@@ -9,7 +9,6 @@ class Wave(group: Group, numberOfEnemies: Int, grid: Grid, val spawnRate: Int, p
  private var lastUpdate = System.currentTimeMillis()
  private var havePassed = 0f
  private var enemiesSpawned = 0
- private var nextSpawn = System.currentTimeMillis()
  /** damageDealt is used to compute the health of the player before this wave if the game is saved in this wave */
  private var damageDealt = 0
 
@@ -33,20 +32,22 @@ class Wave(group: Group, numberOfEnemies: Int, grid: Grid, val spawnRate: Int, p
   this.addEnemy(newEnemy)
  }
  private def update(enemy: Enemies) = {
-   if(!enemy.stopUpdate && !enemy.reachGoal) enemy.update(group)
-      if(enemy.stopUpdate || enemy.reachGoal) {
-        enemy.remove(group)
-        enemy.removeHealthBar(group)
-        if(enemy.canGiveGold ) {
-          this.player.gold = this.player.gold + enemy.gold
-          enemy.canGiveGold = false
-        }
-        if(enemy.canDamage && enemy.reachGoal) {
-          this.player.health.update(1)
-          this.damageDealt += 1
-          enemy.canDamage = false
-        }
-      }
+   if(!enemy.stopUpdate && !enemy.reachGoal) {
+     enemy.update(group)
+   }
+   if(enemy.stopUpdate || enemy.reachGoal) {
+     enemy.remove(group)
+     enemy.removeHealthBar(group)
+     if(enemy.canGiveGold ) {
+       this.player.gold = this.player.gold + enemy.gold
+       enemy.canGiveGold = false
+     }
+     if(enemy.canDamage && enemy.reachGoal) {
+       this.player.health.update(1)
+       this.damageDealt += 1
+       enemy.canDamage = false
+     }
+   }
  }
  def update(): Unit = {
   this.enemies.foreach(enemy => this.update(enemy))
@@ -67,7 +68,7 @@ class Wave(group: Group, numberOfEnemies: Int, grid: Grid, val spawnRate: Int, p
    this.enemies.foreach(enemy => {
      enemy.remove(group)
      enemy.removeHealthBar(group)
-   }
+     }
    )
  }
 }

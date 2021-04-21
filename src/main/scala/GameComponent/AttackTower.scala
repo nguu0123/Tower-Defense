@@ -2,7 +2,7 @@ package GameComponent
 
 import Utils.{Gold, Pos}
 import scalafx.scene.Group
-class AttackTower(towerNumber: Int,goldNeeded: Gold, pos: Pos, val damage: Int, val shootRange: Double, val shootRate: Int, group: Group, waveManager: WaveManager, player: Player, towerFile: String, projectileFile: String) extends Tower(towerNumber,goldNeeded, pos, group, waveManager, player, towerFile) {
+class  AttackTower(towerNumber: Int, goldNeeded: Gold, pos: Pos, val damage: Int, val shootRange: Double, val shootRate: Int, group: Group, waveManager: WaveManager, player: Player, towerFile: String, projectileFile: String) extends Tower(towerNumber,   goldNeeded, pos, group, player, towerFile) {
   private var currentWave: Wave = null
   private var currentEnemy: Enemies = null
   /** using List as each tower usually shoot 1 or 2 shoot until the first shoot hit => List has performance that concat and deconstruct small and foreeach little */

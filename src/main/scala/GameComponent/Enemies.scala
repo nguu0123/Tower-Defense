@@ -3,12 +3,12 @@ package GameComponent
 import Utils._
 import scalafx.scene.Group
 class Enemies(var pos:Pos, var velocity: Velocity, val health: Health, val grid: Grid, val gold: Gold, filePath: String)  {
-  private lazy val aliveImages = (1 to 20).map(x => FileManager.createImageView(filePath + "run (" + x + ").png"))
-  private lazy val deadImages  = (1 to 20).map(x => FileManager.createImageView(filePath + "die (" + x + ").png"))
+  private lazy val aliveImages = (1 to 20).map(x => FileManager.createImageView(filePath + "run (" + x + ").png")).toVector
+  private lazy val deadImages  = (1 to 20).map(x => FileManager.createImageView(filePath + "die (" + x + ").png")).toVector
   private val healtPercent     = FileManager.createImageView("file:src/res/Health0.png")
   private val healthBorder     = FileManager.createImageView("file:src/res/Health1.png")
   private val healthBackground = FileManager.createImageView("file:src/res/Health2.png")
-  private lazy val images = Seq(deadImages, aliveImages)
+  private lazy val images = Vector(deadImages, aliveImages)
   private var haveSpawn = false
   var canDamage = true
   var canGiveGold = true
@@ -47,6 +47,7 @@ class Enemies(var pos:Pos, var velocity: Velocity, val health: Health, val grid:
       this.stopUpdate = true
     }
   }
+
   /** monster can only go in the path with the same texture so monster will find the next square with the same texture to go at that direction */
   def nextDirection: Direction = {
     val up    = grid.getTexture(this.pos + Pos(0.0, -60.0))

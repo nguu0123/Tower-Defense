@@ -1,6 +1,6 @@
 package GUI
 
-import GameComponent.FileManager
+import GameComponent.{FileManager, Ticker}
 import scalafx.scene.Scene
 class GameGui(game: Game) extends Scene {
   val gameOver = FileManager.createImageView("file:src/res/GAMEOVER.png")
@@ -50,16 +50,16 @@ class GameGui(game: Game) extends Scene {
       this.ticker.stop()
       game.gameGroup.getChildren.add(this.gameOver)
       game.root.onMouseClicked = event => {
-       game.gameLose = false
-       this.toMenu()
+      game.gameLose = false
+      this.toMenu()
       }
      }
      else if(game.gameWon) {
-       this.ticker.stop()
-       game.gameGroup.getChildren.add(this.gameWon)
+      this.ticker.stop()
+      game.gameGroup.getChildren.add(this.gameWon)
       game.root.onMouseClicked = event => {
-       game.gameWon = false
-       this.toMenu()
+      game.gameWon = false
+      this.toMenu()
       }
      }
 

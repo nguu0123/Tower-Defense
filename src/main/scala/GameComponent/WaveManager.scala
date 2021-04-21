@@ -2,7 +2,7 @@ package GameComponent
 
 import Utils.{Pos, Gold}
 import scalafx.scene.Group
-class WaveManager(val totalWave: Int, val minEnemiesPerWave: Int, val startWave: Int){
+  class WaveManager(val totalWave: Int, val minEnemiesPerWave: Int, val startWave: Int){
   private var currentWave: Wave = null
   private var numberOfWave = startWave
   private var player: Player = null

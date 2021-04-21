@@ -4,7 +4,7 @@ import Utils.Pos
 import scalafx.scene.Group
 class Wave(group: Group, numberOfEnemies: Int, grid: Grid, val spawnRate: Int, player: Player, spawnLoc: Pos) {
  private val ran = scala.util.Random
- private var enemies = List[Enemies]()
+ private var enemies = Array[Enemies]()
  /** I used havePassed and lastUpdate to compute how much time is actually passed in my game */
  private var lastUpdate = System.currentTimeMillis()
  private var havePassed = 0f
@@ -16,7 +16,7 @@ class Wave(group: Group, numberOfEnemies: Int, grid: Grid, val spawnRate: Int, p
  def getEnemies = this.enemies
  def isCompleted = this.numberOfEnemies == this.enemiesSpawned && this.enemies.forall( enemy => enemy.stopUpdate || enemy.reachGoal)
  def addEnemy(enemies: Enemies) = {
-   this.enemies = this.enemies ++ List(enemies)
+   this.enemies = this.enemies ++ Array(enemies)
  }
  def spawn() = {
   val newEnemy = {

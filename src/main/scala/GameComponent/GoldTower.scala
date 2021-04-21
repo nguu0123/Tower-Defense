@@ -2,7 +2,7 @@ package GameComponent
 
 import Utils.{Gold, Pos}
 import scalafx.scene.Group
-class GoldTower(towerNumber: Int, goldNeeded: Gold, pos: Pos, val giveGold: Int, group: Group, waveManager: WaveManager, player: Player, towerFile: String) extends Tower(towerNumber,goldNeeded, pos, group, waveManager, player, towerFile) {
+class GoldTower(towerNumber: Int, goldNeeded: Gold, pos: Pos, val giveGold: Int, group: Group, player: Player, towerFile: String) extends Tower(towerNumber,goldNeeded, pos, group, player, towerFile) {
   var justBuilt = true
   def destroy() = {
     this.isDestroyed = true
@@ -19,6 +19,6 @@ class GoldTower(towerNumber: Int, goldNeeded: Gold, pos: Pos, val giveGold: Int,
   }
 }
 object  GoldTower {
-   def createTower(pos: Pos, group: Group, waveManager: WaveManager, player: Player) = new GoldTower(2, Gold(50), pos, 5000, group, waveManager, player, "file:src/res/Tower2.png")
+   def createTower(pos: Pos, group: Group, player: Player) = new GoldTower(2, Gold(50), pos, 5000, group, player, "file:src/res/Tower2.png")
 }
 

@@ -1,6 +1,5 @@
 package GUI
 
-import javafx.scene.effect.ColorAdjust
 import scalafx.geometry.{Insets, Pos}
 import scalafx.scene.control.{Button, Label}
 import scalafx.scene.image.Image
@@ -8,8 +7,6 @@ import scalafx.scene.layout._
 import scalafx.scene.paint.Color
 import scalafx.scene.text.Font
 class MainMenu extends VBox {
-  val brightnessChange = new ColorAdjust()
-  brightnessChange.setBrightness(0.1)
   this.setPrefWidth(1600)
   this.setPrefHeight(720)
   this.alignment = Pos.Center

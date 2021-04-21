@@ -74,5 +74,4 @@ class InputManager(var player: Player) {
        group.getChildren.remove(shop(towerChosen))
     }
   }
-
 }

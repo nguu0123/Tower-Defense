@@ -1,4 +1,4 @@
-package GUI
+package GameComponent
 
 import javafx.animation.AnimationTimer
 

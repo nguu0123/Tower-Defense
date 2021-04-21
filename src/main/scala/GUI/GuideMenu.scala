@@ -6,7 +6,7 @@ import scalafx.scene.control.Button
 import scalafx.scene.image.Image
 import scalafx.scene.layout._
 class GuideMenu(gameGui: GameGui) {
-  val pages = (0 to 3).map(index => FileManager.createImageView("file:src/res/guide" + index + ".png"))
+  val pages = (0 to 3).map(index => FileManager.createImageView("file:src/res/guide" + index + ".png")).toVector
   private var index = 0
   val backButton = new Button {
        prefWidth = 90

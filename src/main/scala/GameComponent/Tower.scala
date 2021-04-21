@@ -4,7 +4,7 @@ import Utils.{Gold, Pos}
 import scalafx.scene.Group
 import scalafx.scene.image.ImageView
 
-abstract class Tower(val towerNumer: Int,  val goldNeeded: Gold, val pos: Pos, val group: Group, waveManager: WaveManager, player: Player, towerFile: String){
+abstract class Tower(val towerNumer: Int,  val goldNeeded: Gold, val pos: Pos, val group: Group, player: Player, towerFile: String){
    var lastUpdate = System.currentTimeMillis()
    var havePassed:Long = 0
    var towerImage: ImageView = null

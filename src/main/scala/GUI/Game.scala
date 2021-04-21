@@ -40,7 +40,7 @@ class Game {
  this.player.setWaveManager(this.waveManager)
  this.waveManager.setPlayer(this.player)
  /** Three functional button: save, pause and continue game */
- val pauseAndContinueButtons = new HBox {
+ val buttons = new HBox {
    spacing = 20
  }
  val pauseButton    = FileManager.createImageView("file:src/res/pauseButton.png")
@@ -56,11 +56,11 @@ class Game {
     FileManager.saveGame("src/data/saveGame.json", this)
     this.backToMenu = true
  }
- pauseAndContinueButtons.getChildren.addAll(saveButton, continueButton, pauseButton)
- ingameMenu.getChildren.add(pauseAndContinueButtons)
+ buttons.getChildren.addAll(saveButton, continueButton, pauseButton)
  /** Wave, gold, and health information panel */
  val font = Font.loadFont("file:src/res/font.ttf", 40)
  val waveSystem   = new WaveSystem(this.waveManager, font, ingameMenu)
+ ingameMenu.getChildren.add(buttons)
  val goldSystem   = new GoldSystem(this.player, ingameMenu, font)
  val playerHealth = new PlayerHealth(this.player, ingameMenu)
  /** Shop images (towers that can be built) */
@@ -93,6 +93,7 @@ class Game {
   def restart() = {
     this.player.restart()
     this.waveManager.restart()
+    this.inputManager.mouseClicked = 0
   }
   def update() = {
       inputManager.handleInput(shopImageVector, gameGroup)
@@ -140,9 +141,10 @@ class Game {
     this.grid.draw(graphicContext)
   }
   def newGame() = {
-    waveSystem.setWaveManager(this.waveManager)
-    goldSystem.setPlayer(this.player)
-    playerHealth.setPlayer(this.player)
-    inputManager.setPlayer(this.player)
+    this.waveSystem.setWaveManager(this.waveManager)
+    this.goldSystem.setPlayer(this.player)
+    this.playerHealth.setPlayer(this.player)
+    this.inputManager.setPlayer(this.player)
+    this.inputManager.mouseClicked = 0
   }
 }

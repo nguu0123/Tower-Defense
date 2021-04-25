@@ -2,8 +2,8 @@ package GameComponent
 
 import Utils.{Gold, Pos}
 import scalafx.scene.Group
-class  AttackTower(towerNumber: Int, goldNeeded: Gold, pos: Pos, val damage: Int, val shootRange: Double, val shootRate: Int, group: Group, waveManager: WaveManager, player: Player, towerFile: String, projectileFile: String) extends Tower(towerNumber,   goldNeeded, pos, group, player, towerFile) {
-  private var currentWave: Wave = null
+class  AttackTower(towerNumber: Int, goldNeeded: Gold, pos: Pos, val damage: Int, val shootRange: Double, val shootRate: Int, group: Group, waveManager: WaveManager, player: Player, towerFile: String, projectileFile: String) extends Tower(towerNumber, goldNeeded, pos, group, player, towerFile) {
+  private var currentWave : Wave    = null
   private var currentEnemy: Enemies = null
   /** using List as each tower usually shoot 1 or 2 shoot until the first shoot hit => List has performance that concat and deconstruct small and foreeach little */
   private var projectiles = List[Projectile]()
@@ -15,8 +15,8 @@ class  AttackTower(towerNumber: Int, goldNeeded: Gold, pos: Pos, val damage: Int
   if(this.currentWave != null)  {
       if (this.currentWave.getEnemies.nonEmpty) this.currentEnemy = {
        val ans = this.currentWave.getEnemies.find(x => ( (x.center.distance(this.pos) <= this.shootRange) && (x.isAlive && !x.reachGoal) ) )
-        if(ans.nonEmpty) ans.get
-        else null
+       if(ans.nonEmpty) ans.get
+       else null
       }
     }
   }
@@ -33,7 +33,7 @@ class  AttackTower(towerNumber: Int, goldNeeded: Gold, pos: Pos, val damage: Int
     this.setWave(this.waveManager.getWave)
     this.setEnemy()
     this.havePassed += System.currentTimeMillis() - this.lastUpdate
-    this.lastUpdate = System.currentTimeMillis()
+    this.lastUpdate  = System.currentTimeMillis()
     if(this.currentEnemy != null && this.havePassed > this.shootRate) {
        this.shoot()
        this.havePassed = 0

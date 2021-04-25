@@ -7,7 +7,7 @@ class Wave(group: Group, numberOfEnemies: Int, grid: Grid, val spawnRate: Int, p
  private var enemies = Array[Enemies]()
  /** I used havePassed and lastUpdate to compute how much time is actually passed in my game */
  private var lastUpdate = System.currentTimeMillis()
- private var havePassed = 0f
+ private var havePassed = 0L
  private var enemiesSpawned = 0
  /** damageDealt is used to compute the health of the player before this wave if the game is saved in this wave */
  private var damageDealt = 0
@@ -18,6 +18,7 @@ class Wave(group: Group, numberOfEnemies: Int, grid: Grid, val spawnRate: Int, p
  def addEnemy(enemies: Enemies) = {
    this.enemies = this.enemies ++ Array(enemies)
  }
+ /** Randomly spawn new enemy */
  def spawn() = {
   val newEnemy = {
   if(this.ran.nextInt(20) == 9)
@@ -53,11 +54,11 @@ class Wave(group: Group, numberOfEnemies: Int, grid: Grid, val spawnRate: Int, p
   this.enemies.foreach(enemy => this.update(enemy))
   this.havePassed += System.currentTimeMillis() - this.lastUpdate
   this.lastUpdate = System.currentTimeMillis()
-  if(this.havePassed > this.spawnRate && enemiesSpawned < numberOfEnemies) {
+  if(this.havePassed > this.spawnRate && this.enemiesSpawned < numberOfEnemies) {
      this.spawn()
-     enemiesSpawned += 1
+     this.enemiesSpawned += 1
     }
-  if(numberOfEnemies == enemiesSpawned) {
+  if(numberOfEnemies == this.enemiesSpawned) {
      this.havePassed = 0
     }
  }

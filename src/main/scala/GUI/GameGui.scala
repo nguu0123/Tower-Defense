@@ -4,9 +4,9 @@ import GameComponent.{FileManager, Ticker}
 import scalafx.scene.Scene
 class GameGui(game: Game) extends Scene {
   val gameOver = FileManager.createImageView("file:src/res/GAMEOVER.png")
-  this.gameOver.relocate(400, 200)
-  val gameWon = FileManager.createImageView("file:src/res/GAMEWON.png")
+  val gameWon  = FileManager.createImageView("file:src/res/GAMEWON.png")
   this.gameWon.relocate(200, 100)
+  this.gameOver.relocate(400, 200)
 
   val guideMenu = new GuideMenu(this)
   guideMenu.nextButton.onAction = (event) => guideMenu.next()

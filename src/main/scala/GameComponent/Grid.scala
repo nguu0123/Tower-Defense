@@ -4,7 +4,7 @@ import Utils.Pos
 import scalafx.scene.canvas.GraphicsContext
 class Grid(val width: Int, val height: Int){
   val size = width * height
-  val xWidth = width / 60
+  val xWidth  = width / 60
   val yHeight = height / 60
   private val contents: Array[Array[Square]] = {
     val elems = Array.ofDim[Square](xWidth,yHeight)
@@ -43,7 +43,6 @@ class Grid(val width: Int, val height: Int){
   def draw(gc: GraphicsContext) = {
     val components = this.contents.flatten
     for(square <- components) gc.drawImage(square.image, square.pos.x, square.pos.y, square.width, square.height)
-    gc
   }
   def canBuildAt(pos: Pos): Boolean = {
    if(this.contains(pos))  this.elementAt(pos).buildable

@@ -96,25 +96,25 @@ class Game {
     this.inputManager.mouseClicked = 0
   }
   def update() = {
-      inputManager.handleInput(shopImageVector, gameGroup)
-      goldSystem.update()
-      if(!this.player.health.isDead && this.player.stopGame == 0){
-         waveSystem.update()
-         playerHealth.update()
-         this.waveManager.update()
-         this.player.update()
-         if(this.waveManager.levelCompleted) {
-           this.gameWon = true
-        }
-       }
-      else if (this.player.stopGame == 1) {
-        this.waveManager.updateTime()
-        this.player.updateTime()
+    inputManager.handleInput(shopImageVector, gameGroup)
+    goldSystem.update()
+    if(!this.player.health.isDead && this.player.stopGame == 0){
+       waveSystem.update()
+       playerHealth.update()
+       this.waveManager.update()
+       this.player.update()
+       if(this.waveManager.levelCompleted) {
+         this.gameWon = true
       }
-      else if (this.player.health.isDead) {
-          this.gameLose = true
-          playerHealth.update()
-        }
+     }
+    else if (this.player.stopGame == 1) {
+      this.waveManager.updateTime()
+      this.player.updateTime()
+    }
+    else if (this.player.health.isDead) {
+        this.gameLose = true
+        playerHealth.update()
+      }
     val currentSecond = System.currentTimeMillis()
        if(currentSecond > nextSecond) {
          nextSecond += 1000
@@ -122,7 +122,7 @@ class Game {
          frameCurrentSecond = 0
        }
        frameCurrentSecond += 1
-       println(frameLastSecond)
+       //println(frameLastSecond)
   }
   def drawNewMap(mapNumer: Int) = {
     this.player.currentMapPlaying = mapNumer
@@ -136,8 +136,8 @@ class Game {
     for(i <- 0 to 2) {
        for(j <- 0 to 2) {
           this.grid.setNotBuildable(Pos(1020,120) + Pos(i * 60, j* 60))
+       }
     }
-}
     this.grid.draw(graphicContext)
   }
   def newGame() = {

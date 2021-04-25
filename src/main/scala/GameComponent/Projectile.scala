@@ -3,10 +3,10 @@ package GameComponent
 import Utils.{Direction, Pos, Velocity}
 import scalafx.scene.Group
 class Projectile(var pos: Pos, val speed: Double, val radious: Double, val target: Enemies, val damage: Int, filePath: String) {
-  var velocity = Velocity(Direction.Up, this.speed)
-  val radiousSq = radious * radious
+  var velocity   = Velocity(Direction.Up, this.speed)
+  val radiousSq  = radious * radious
   var stopUpdate = false
-  var haveFired = false
+  var haveFired  = false
   val projectileImage = FileManager.createImageView(filePath)
   val rotate = !(filePath == "file:src/res/Rock.png")
 

@@ -31,17 +31,17 @@ import scalafx.scene.Group
   def getTowers     = this.previousTowers
   def spawnWave() = {
    this.previousPlayerGold = this.player.gold
-   this.previousTowers = this.player.getTower
-   this.currentWave = new Wave(this.group, this.minEnemiesPerWave + 2 * this.numberOfWave, this.grid , 1000 - 100 * this.numberOfWave, this.player, this.spawnLoc)
-   this.numberOfWave += 1
+   this.previousTowers     = this.player.getTower
+   this.currentWave        = new Wave(this.group, this.minEnemiesPerWave + 2 * this.numberOfWave, this.grid , 1000 - 100 * this.numberOfWave, this.player, this.spawnLoc)
+   this.numberOfWave       += 1
   }
   def update(): Unit = {
-     if(this.currentWave.isCompleted && this.numberOfWave < totalWave) {
-       this.spawnWave()
-     }
-     else {
-       this.currentWave.update()
-     }
+    if(this.currentWave.isCompleted && this.numberOfWave < totalWave) {
+      this.spawnWave()
+    }
+    else {
+      this.currentWave.update()
+    }
   }
   /** Like towers, when the game is paused. The time related variable should still be updated because if the game is paused and the wave's time is not updated,
    *  new monster will be spawned immediately when the game is resumed */

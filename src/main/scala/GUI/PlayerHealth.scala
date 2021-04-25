@@ -5,7 +5,7 @@ import scalafx.scene.Group
 import scalafx.scene.layout.VBox
 class PlayerHealth(var player: Player, VBox: VBox)  {
   val healthBar = new Group()
-  val healthIcon = FileManager.createImageView("file:src/res/healthicon.png")
+  val healthIcon       = FileManager.createImageView("file:src/res/healthicon.png")
   val healthBackground = FileManager.createImageView("file:src/res/healthbackground.png")
   val healthPercentage = FileManager.createImageView("file:src/res/healthpercentage.png")
   healthBar.getChildren.add(healthIcon)

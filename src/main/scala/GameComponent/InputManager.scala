@@ -13,7 +13,7 @@ class InputManager(var player: Player) {
   val shop0 = FileManager.createImageView("file:src/res/tower0.png")
   val shop1 = FileManager.createImageView("file:src/res/tower1.png")
   val shop2 = FileManager.createImageView("file:src/res/tower2.png")
-  val shop = Vector(shop0, shop1, shop2)
+  val shop  = Vector(shop0, shop1, shop2)
   //can add circle that show tower shootRange => dont know how to do that//
   def setPlayer(player: Player) = {
    this.player = player

@@ -22,7 +22,6 @@ class GuideMenu(gameGui: GameGui) {
                )
            )
        )
-
    }
   val nextButton = new Button {
         prefWidth = 90

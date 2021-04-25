@@ -2,13 +2,11 @@ package GameComponent
 
 import GUI.Game
 import Utils.{Gold, Health, Pos}
-
 import scala.collection.mutable.Buffer
 import java.io.FileNotFoundException
 import io.circe.generic.auto._
 import io.circe.parser.decode
 import scalafx.scene.image.{Image, ImageView}
-
 import java.io._
 import scala.io.Source
 import scalafx.scene.control.Alert

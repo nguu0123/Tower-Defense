@@ -8,7 +8,6 @@ object TowerDefense extends JFXApp {
      title.value = "Tower Defense"
      resizable = false
      scene = gameGUI
-
   }
 }
 

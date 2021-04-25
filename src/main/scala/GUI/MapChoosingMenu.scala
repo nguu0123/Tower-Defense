@@ -74,7 +74,6 @@ class MapChoosingMenu extends VBox {
            )
        )
    }
-
    mapSelector.children = Array(map1, map2, map3)
    this.children = Array(header, mapSelector)
 

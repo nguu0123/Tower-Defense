@@ -52,17 +52,17 @@ class Player(var gold: Gold, var health: Health) {
   def buildTower(towerChosen:Int, pos: Pos) = {
     if(towerChosen == 1 && this.gold.canBuild(Gold(150))) {
        val buildPos = pos.approximate
-       this.addTowerAt(towerChosen, pos)
+       this.addTowerAt(towerChosen, buildPos)
        this.gold = this.gold - Gold(150)
     }
     else if(towerChosen == 0 && this.gold.canBuild(Gold(100))) {
        val buildPos = pos.approximate
-       this.addTowerAt(towerChosen, pos)
+       this.addTowerAt(towerChosen, buildPos)
        this.gold = this.gold - Gold(100)
     }
     else if(towerChosen == 2 && this.gold.canBuild(Gold(50))){
       val buildPos = pos.approximate
-      this.addTowerAt(towerChosen, pos)
+      this.addTowerAt(towerChosen, buildPos)
       this.gold = this.gold - Gold(50)
     }
   }

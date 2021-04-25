@@ -122,7 +122,7 @@ class Game {
          frameCurrentSecond = 0
        }
        frameCurrentSecond += 1
-       //println(frameLastSecond)
+       println(frameLastSecond)
   }
   def drawNewMap(mapNumer: Int) = {
     this.player.currentMapPlaying = mapNumer
